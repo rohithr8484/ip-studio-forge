@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Music, Headphones, Radio, Sparkles, Shield, Zap } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
+import { BlockscoutStatsModal } from "./BlockscoutStatsModal";
 
 const musicFeatures = [
   {
@@ -113,9 +114,7 @@ export const MusicFeatures = () => {
         <div className="text-center">
           <div className="inline-flex flex-col sm:flex-row gap-4">
             <IPRegistrationModal />
-            <Button variant="outline" size="lg">
-              View Story Protocol Integration
-            </Button>
+            <BlockscoutStatsModal />
           </div>
           <p className="text-sm text-muted-foreground mt-6">
             Powered by Story Protocol • Blockchain-Verified IP • Instant Registration
