@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { UseCases } from "@/components/UseCases";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Features } from "@/components/Features";
+import { MusicFeatures } from "@/components/MusicFeatures";
 import { CTA } from "@/components/CTA";
 
 const Index = () => {
@@ -18,6 +19,9 @@ const Index = () => {
       </div>
       <div id="features">
         <Features />
+      </div>
+      <div id="music">
+        <MusicFeatures />
       </div>
       <CTA />
       
