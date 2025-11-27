@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Music, Headphones, Radio, Sparkles, Shield, Zap } from "lucide-react";
+import { IPRegistrationModal } from "./IPRegistrationModal";
 
 const musicFeatures = [
   {
@@ -111,10 +112,7 @@ export const MusicFeatures = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex flex-col sm:flex-row gap-4">
-            <Button variant="hero" size="lg" className="group">
-              Start Creating Music IP
-              <Music className="w-4 h-4 group-hover:scale-110 transition-transform ml-2" />
-            </Button>
+            <IPRegistrationModal />
             <Button variant="outline" size="lg">
               View Story Protocol Integration
             </Button>
