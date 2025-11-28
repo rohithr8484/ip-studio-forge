@@ -30,15 +30,11 @@ export const Navigation = () => {
             <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
               Features
             </a>
-            <a href="#docs" className="text-muted-foreground hover:text-foreground transition-colors">
-              Documentation
-            </a>
           </div>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
             <WalletConnect />
-            <Button variant="ghost">Sign In</Button>
             <Button variant="hero">Get Started</Button>
           </div>
 
@@ -71,12 +67,8 @@ export const Navigation = () => {
               <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors py-2">
                 Features
               </a>
-              <a href="#docs" className="text-muted-foreground hover:text-foreground transition-colors py-2">
-                Documentation
-              </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
                 <WalletConnect />
-                <Button variant="ghost" className="w-full">Sign In</Button>
                 <Button variant="hero" className="w-full">Get Started</Button>
               </div>
             </div>
