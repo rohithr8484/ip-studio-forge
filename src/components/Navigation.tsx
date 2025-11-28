@@ -13,7 +13,7 @@ export const Navigation = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-primary"></div>
-            <span className="text-xl font-bold text-foreground">StoryIP</span>
+            <span className="text-xl font-bold text-foreground">Surra</span>
           </div>
 
           {/* Desktop Navigation */}
