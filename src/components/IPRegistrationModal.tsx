@@ -7,10 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Music } from "lucide-react";
-import { useAccount, useWalletClient } from 'wagmi';
+import { useAccount, useWalletClient, useSwitchChain } from 'wagmi';
 import { StoryClient, StoryConfig } from '@story-protocol/core-sdk';
 import { WalletConnect } from './WalletConnect';
 import { custom, toHex } from 'viem';
+import { storyAeneidTestnet } from '@/lib/web3-config';
 
 export const IPRegistrationModal = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,7 @@ export const IPRegistrationModal = () => {
   const { toast } = useToast();
   const { address, isConnected, chain } = useAccount();
   const { data: walletClient, isLoading: isWalletLoading } = useWalletClient();
+  const { switchChain } = useSwitchChain();
   
   const [formData, setFormData] = useState({
     ipName: "",
@@ -26,8 +28,20 @@ export const IPRegistrationModal = () => {
     mediaUrl: "",
   });
 
+  // Check if on correct network
+  const isCorrectNetwork = chain?.id === storyAeneidTestnet.id;
+
   // Debug logging
-  console.log('Wallet status:', { isConnected, address, chain: chain?.name, hasWalletClient: !!walletClient, isWalletLoading });
+  console.log('Wallet status:', { 
+    isConnected, 
+    address, 
+    chain: chain?.name, 
+    chainId: chain?.id,
+    expectedChainId: storyAeneidTestnet.id,
+    isCorrectNetwork,
+    hasWalletClient: !!walletClient, 
+    isWalletLoading 
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +53,24 @@ export const IPRegistrationModal = () => {
         variant: "destructive",
       });
       return;
+    }
+
+    // Check network and switch if needed
+    if (!isCorrectNetwork) {
+      toast({
+        title: "Wrong Network",
+        description: "Switching to Story Aeneid Testnet...",
+      });
+      try {
+        await switchChain({ chainId: storyAeneidTestnet.id });
+      } catch (error) {
+        toast({
+          title: "Network Switch Failed",
+          description: "Please manually switch to Story Aeneid Testnet in your wallet",
+          variant: "destructive",
+        });
+        return;
+      }
     }
 
     if (isWalletLoading) {
@@ -128,8 +160,32 @@ export const IPRegistrationModal = () => {
           </DialogDescription>
         </DialogHeader>
         
-        <div className="mb-4">
+        <div className="mb-4 space-y-3">
           <WalletConnect />
+          
+          {isConnected && !isCorrectNetwork && (
+            <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
+              <p className="text-sm text-amber-600 dark:text-amber-400 mb-2">
+                Wrong network detected. Please switch to Story Aeneid Testnet (Chain ID: {storyAeneidTestnet.id})
+              </p>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={() => switchChain({ chainId: storyAeneidTestnet.id })}
+              >
+                Switch Network
+              </Button>
+            </div>
+          )}
+          
+          {isConnected && isCorrectNetwork && (
+            <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+              <p className="text-xs text-emerald-600 dark:text-emerald-400">
+                ✓ Connected to Story Aeneid Testnet
+              </p>
+            </div>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -141,7 +197,7 @@ export const IPRegistrationModal = () => {
               value={formData.ipName}
               onChange={(e) => setFormData({ ...formData, ipName: e.target.value })}
               required
-              disabled={!isConnected}
+              disabled={!isConnected || !isCorrectNetwork}
             />
           </div>
 
@@ -150,7 +206,7 @@ export const IPRegistrationModal = () => {
             <Select
               value={formData.ipType}
               onValueChange={(value) => setFormData({ ...formData, ipType: value })}
-              disabled={!isConnected}
+              disabled={!isConnected || !isCorrectNetwork}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -172,7 +228,7 @@ export const IPRegistrationModal = () => {
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={3}
-              disabled={!isConnected}
+              disabled={!isConnected || !isCorrectNetwork}
             />
           </div>
 
@@ -184,7 +240,7 @@ export const IPRegistrationModal = () => {
               placeholder="https://..."
               value={formData.mediaUrl}
               onChange={(e) => setFormData({ ...formData, mediaUrl: e.target.value })}
-              disabled={!isConnected}
+              disabled={!isConnected || !isCorrectNetwork}
             />
           </div>
 
@@ -202,7 +258,7 @@ export const IPRegistrationModal = () => {
               type="submit"
               variant="hero"
               className="flex-1"
-              disabled={loading || !isConnected || isWalletLoading}
+              disabled={loading || !isConnected || isWalletLoading || !isCorrectNetwork}
             >
               {loading ? (
                 <>
@@ -214,6 +270,8 @@ export const IPRegistrationModal = () => {
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Initializing...
                 </>
+              ) : !isCorrectNetwork ? (
+                'Switch Network First'
               ) : (
                 'Register IP'
               )}
