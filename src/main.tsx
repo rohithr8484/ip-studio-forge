@@ -1,10 +1,10 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { Web3Provider } from "./components/Web3Provider";
+import { PrivyProvider } from "./components/PrivyProvider";
 
 createRoot(document.getElementById("root")!).render(
-  <Web3Provider>
+  <PrivyProvider>
     <App />
-  </Web3Provider>
+  </PrivyProvider>
 );

@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Music, Headphones, Radio, Sparkles, Shield, Zap } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
+import { IPRegistrationModalPrivy } from "./IPRegistrationModalPrivy";
 import { BlockscoutStatsModal } from "./BlockscoutStatsModal";
 
 const musicFeatures = [
@@ -114,6 +115,7 @@ export const MusicFeatures = () => {
         <div className="text-center">
           <div className="inline-flex flex-col sm:flex-row gap-4">
             <IPRegistrationModal />
+            <IPRegistrationModalPrivy />
             <BlockscoutStatsModal />
           </div>
           <p className="text-sm text-muted-foreground mt-6">
