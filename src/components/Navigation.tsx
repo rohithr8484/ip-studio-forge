@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { WalletConnect } from "./WalletConnect";
-import { PrivyLogin } from "./PrivyLogin";
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +34,6 @@ export const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <PrivyLogin />
             <WalletConnect />
             <Button variant="ghost">Sign In</Button>
             <Button variant="hero">Get Started</Button>
@@ -71,7 +69,6 @@ export const Navigation = () => {
                 Documentation
               </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
-                <PrivyLogin />
                 <WalletConnect />
                 <Button variant="ghost" className="w-full">Sign In</Button>
                 <Button variant="hero" className="w-full">Get Started</Button>
