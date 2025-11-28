@@ -1,5 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
+import { ChallengeDescription } from "@/components/ChallengeDescription";
 import { UseCases } from "@/components/UseCases";
 import { AIContentTypes } from "@/components/AIContentTypes";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -12,6 +13,9 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       <Hero />
+      <div id="challenge">
+        <ChallengeDescription />
+      </div>
       <div id="use-cases">
         <UseCases />
       </div>
