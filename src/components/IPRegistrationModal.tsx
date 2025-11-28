@@ -13,7 +13,7 @@ import { WalletConnect } from './WalletConnect';
 import { custom, toHex } from 'viem';
 import { storyAeneidTestnet } from '@/lib/web3-config';
 
-export const IPRegistrationModal = () => {
+export const IPRegistrationModal = ({ defaultType }: { defaultType?: string } = {}) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
@@ -23,7 +23,7 @@ export const IPRegistrationModal = () => {
   
   const [formData, setFormData] = useState({
     ipName: "",
-    ipType: "music",
+    ipType: defaultType?.toLowerCase() || "music",
     description: "",
     mediaUrl: "",
   });
@@ -126,7 +126,7 @@ export const IPRegistrationModal = () => {
 
       setFormData({
         ipName: "",
-        ipType: "music",
+        ipType: defaultType?.toLowerCase() || "music",
         description: "",
         mediaUrl: "",
       });
@@ -147,9 +147,8 @@ export const IPRegistrationModal = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="hero" size="lg" className="group">
-          Register Music IP
-          <Music className="w-4 h-4 group-hover:scale-110 transition-transform ml-2" />
+        <Button variant="hero" size="lg" className="w-full">
+          Register as IP on Story
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
@@ -216,6 +215,9 @@ export const IPRegistrationModal = () => {
                 <SelectItem value="remix">Remix</SelectItem>
                 <SelectItem value="stem">Stem</SelectItem>
                 <SelectItem value="ringtone">Ringtone</SelectItem>
+                <SelectItem value="pov videos">PoV Videos</SelectItem>
+                <SelectItem value="drone footage">Drone Footage</SelectItem>
+                <SelectItem value="xr motion capture">XR Motion Capture</SelectItem>
               </SelectContent>
             </Select>
           </div>
