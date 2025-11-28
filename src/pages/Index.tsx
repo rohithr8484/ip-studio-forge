@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { UseCases } from "@/components/UseCases";
+import { AIContentTypes } from "@/components/AIContentTypes";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Features } from "@/components/Features";
 import { MusicFeatures } from "@/components/MusicFeatures";
@@ -14,6 +15,7 @@ const Index = () => {
       <div id="use-cases">
         <UseCases />
       </div>
+      <AIContentTypes />
       <div id="how-it-works">
         <HowItWorks />
       </div>
