@@ -5,9 +5,9 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Story Protocol API endpoints
-const STORY_API_PROD = "https://api.story.foundation";
-const STORY_API_STAGING = "https://api.testnet.story.foundation";
+// Story Protocol API endpoints (correct URLs from official docs)
+const STORY_API_PROD = "https://api.storyapis.com";
+const STORY_API_STAGING = "https://staging-api.storyprotocol.net";
 
 serve(async (req) => {
   // Handle CORS preflight requests
