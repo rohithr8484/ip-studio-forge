@@ -18,6 +18,9 @@ export const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
+            <a href="#challenge" className="text-muted-foreground hover:text-foreground transition-colors">
+              Challenge
+            </a>
             <a href="#use-cases" className="text-muted-foreground hover:text-foreground transition-colors">
               Use Cases
             </a>
@@ -56,6 +59,9 @@ export const Navigation = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border/50">
             <div className="flex flex-col gap-4">
+              <a href="#challenge" className="text-muted-foreground hover:text-foreground transition-colors py-2">
+                Challenge
+              </a>
               <a href="#use-cases" className="text-muted-foreground hover:text-foreground transition-colors py-2">
                 Use Cases
               </a>
