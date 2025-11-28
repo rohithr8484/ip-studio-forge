@@ -17,7 +17,7 @@ export const IPRegistrationModal = () => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const { address, isConnected, chain } = useAccount();
-  const { data: walletClient } = useWalletClient();
+  const { data: walletClient, isLoading: isWalletLoading } = useWalletClient();
   
   const [formData, setFormData] = useState({
     ipName: "",
@@ -25,6 +25,9 @@ export const IPRegistrationModal = () => {
     description: "",
     mediaUrl: "",
   });
+
+  // Debug logging
+  console.log('Wallet status:', { isConnected, address, chain: chain?.name, hasWalletClient: !!walletClient, isWalletLoading });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,10 +41,19 @@ export const IPRegistrationModal = () => {
       return;
     }
 
+    if (isWalletLoading) {
+      toast({
+        title: "Please Wait",
+        description: "Wallet is initializing...",
+      });
+      return;
+    }
+
     if (!walletClient) {
+      console.error('Wallet client not available. Debug info:', { isConnected, address, chain, isWalletLoading });
       toast({
         title: "Error",
-        description: "Wallet client not available",
+        description: "Wallet client not available. Please try reconnecting your wallet.",
         variant: "destructive",
       });
       return;
@@ -190,12 +202,17 @@ export const IPRegistrationModal = () => {
               type="submit"
               variant="hero"
               className="flex-1"
-              disabled={loading || !isConnected}
+              disabled={loading || !isConnected || isWalletLoading}
             >
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Registering...
+                </>
+              ) : isWalletLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Initializing...
                 </>
               ) : (
                 'Register IP'
