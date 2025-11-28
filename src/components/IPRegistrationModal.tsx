@@ -5,54 +5,94 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Music } from "lucide-react";
+import { useAccount, useWalletClient } from 'wagmi';
+import { StoryClient, StoryConfig } from '@story-protocol/core-sdk';
+import { WalletConnect } from './WalletConnect';
+import { custom, toHex } from 'viem';
 
 export const IPRegistrationModal = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const { address, isConnected, chain } = useAccount();
+  const { data: walletClient } = useWalletClient();
   
   const [formData, setFormData] = useState({
     ipName: "",
     ipType: "music",
     description: "",
     mediaUrl: "",
-    environment: "staging"
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!isConnected || !address) {
+      toast({
+        title: "Wallet Not Connected",
+        description: "Please connect your wallet first",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!walletClient) {
+      toast({
+        title: "Error",
+        description: "Wallet client not available",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('register-ip', {
-        body: formData
+      // Initialize Story Protocol SDK (correct way for wagmi)
+      const config: StoryConfig = {
+        wallet: walletClient,
+        transport: custom(walletClient.transport),
+        chainId: 'aeneid', // Story testnet
+      };
+      
+      const client = StoryClient.newClient(config);
+
+      // Register IP Asset on Story Protocol with proper metadata
+      const response = await client.ipAsset.registerIpAsset({
+        nft: {
+          type: 'mint',
+          spgNftContract: '0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc', // Story's default SPG NFT contract
+        },
+        ipMetadata: {
+          ipMetadataURI: formData.mediaUrl || 'https://example.com/metadata',
+          ipMetadataHash: toHex(formData.ipName, { size: 32 }),
+          nftMetadataURI: formData.mediaUrl || 'https://example.com/nft-metadata',
+          nftMetadataHash: toHex(formData.description || formData.ipName, { size: 32 }),
+        },
       });
 
-      if (error) throw error;
+      console.log('IP registered successfully:', response);
 
       toast({
         title: "IP Registered Successfully!",
-        description: data.message || "Your music IP has been registered on Story Protocol",
+        description: `"${formData.ipName}" registered on Story Protocol. IPA ID: ${response.ipId}`,
       });
 
-      // Reset form
       setFormData({
         ipName: "",
         ipType: "music",
         description: "",
         mediaUrl: "",
-        environment: "staging"
       });
       setOpen(false);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Registration error:', error);
       toast({
         title: "Registration Failed",
-        description: error instanceof Error ? error.message : "Failed to register IP",
+        description: error.message || "Failed to register IP on Story Protocol",
         variant: "destructive",
       });
     } finally {
@@ -72,10 +112,14 @@ export const IPRegistrationModal = () => {
         <DialogHeader>
           <DialogTitle>Register Music IP on Story Protocol</DialogTitle>
           <DialogDescription>
-            Register your music creation with blockchain-verified ownership
+            Connect your wallet and register your music on the blockchain
           </DialogDescription>
         </DialogHeader>
         
+        <div className="mb-4">
+          <WalletConnect />
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="ipName">IP Name *</Label>
@@ -85,6 +129,7 @@ export const IPRegistrationModal = () => {
               value={formData.ipName}
               onChange={(e) => setFormData({ ...formData, ipName: e.target.value })}
               required
+              disabled={!isConnected}
             />
           </div>
 
@@ -93,6 +138,7 @@ export const IPRegistrationModal = () => {
             <Select
               value={formData.ipType}
               onValueChange={(value) => setFormData({ ...formData, ipType: value })}
+              disabled={!isConnected}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -114,6 +160,7 @@ export const IPRegistrationModal = () => {
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={3}
+              disabled={!isConnected}
             />
           </div>
 
@@ -125,23 +172,8 @@ export const IPRegistrationModal = () => {
               placeholder="https://..."
               value={formData.mediaUrl}
               onChange={(e) => setFormData({ ...formData, mediaUrl: e.target.value })}
+              disabled={!isConnected}
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="environment">Environment</Label>
-            <Select
-              value={formData.environment}
-              onValueChange={(value) => setFormData({ ...formData, environment: value })}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="staging">Staging (Testnet)</SelectItem>
-                <SelectItem value="production">Production</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
 
           <div className="flex gap-3 pt-4">
@@ -158,7 +190,7 @@ export const IPRegistrationModal = () => {
               type="submit"
               variant="hero"
               className="flex-1"
-              disabled={loading}
+              disabled={loading || !isConnected}
             >
               {loading ? (
                 <>
