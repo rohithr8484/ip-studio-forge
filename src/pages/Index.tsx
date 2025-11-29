@@ -6,6 +6,7 @@ import { AIContentTypes } from "@/components/AIContentTypes";
 import { HowItWorks } from "@/components/HowItWorks";
 
 import { MusicFeatures } from "@/components/MusicFeatures";
+import { MusicConsumptionBanners } from "@/components/MusicConsumptionBanners";
 import { CTA } from "@/components/CTA";
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
       <div id="music">
         <MusicFeatures />
       </div>
+      <MusicConsumptionBanners />
       <CTA />
       
       {/* Footer */}
