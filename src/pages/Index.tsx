@@ -4,7 +4,7 @@ import { ChallengeDescription } from "@/components/ChallengeDescription";
 import { UseCases } from "@/components/UseCases";
 import { AIContentTypes } from "@/components/AIContentTypes";
 import { HowItWorks } from "@/components/HowItWorks";
-import { Features } from "@/components/Features";
+
 import { MusicFeatures } from "@/components/MusicFeatures";
 import { CTA } from "@/components/CTA";
 
@@ -22,9 +22,6 @@ const Index = () => {
       <AIContentTypes />
       <div id="how-it-works">
         <HowItWorks />
-      </div>
-      <div id="features">
-        <Features />
       </div>
       <div id="music">
         <MusicFeatures />
