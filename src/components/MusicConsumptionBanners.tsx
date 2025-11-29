@@ -1,6 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { Music2, Sparkles, Disc3 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
+import musicMemesImg from "@/assets/music-memes.jpg";
+import onchainMixingImg from "@/assets/onchain-mixing.jpg";
+import ipMarketplaceImg from "@/assets/ip-marketplace.jpg";
 
 const banners = [
   {
@@ -9,6 +12,7 @@ const banners = [
     description: "Create viral meme content with perfectly synced music. Register your music-meme combinations as unique IP assets on-chain.",
     gradient: "from-pink-500/20 via-purple-500/20 to-blue-500/20",
     iconGradient: "from-pink-500 to-purple-500",
+    image: musicMemesImg,
   },
   {
     icon: Disc3,
@@ -16,6 +20,7 @@ const banners = [
     description: "Revolutionary blockchain-powered mixing technology. Layer stems, apply effects, and register every mix as verifiable IP with automated royalty splits.",
     gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20",
     iconGradient: "from-blue-500 to-cyan-500",
+    image: onchainMixingImg,
   },
   {
     icon: Sparkles,
@@ -23,6 +28,7 @@ const banners = [
     description: "Transform your music into ringtones, samples, loops, and more. Every derivative work is tracked and monetized on-chain.",
     gradient: "from-amber-500/20 via-orange-500/20 to-red-500/20",
     iconGradient: "from-amber-500 to-orange-500",
+    image: ipMarketplaceImg,
   },
 ];
 
@@ -49,24 +55,36 @@ export const MusicConsumptionBanners = () => {
             return (
               <Card 
                 key={index}
-                className={`relative overflow-hidden p-8 md:p-12 bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
+                className={`relative overflow-hidden bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
               >
-                <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                  <div className={`flex-shrink-0 w-24 h-24 rounded-3xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-12 h-12 text-white" />
+                <div className="relative z-10 flex flex-col md:flex-row items-center gap-0 md:gap-8">
+                  {/* Image Section */}
+                  <div className="relative w-full md:w-1/3 h-64 md:h-80 overflow-hidden">
+                    <img 
+                      src={banner.image} 
+                      alt={banner.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/80 md:bg-gradient-to-r md:from-transparent md:to-background" />
+                    <div className={`absolute top-4 left-4 w-16 h-16 rounded-2xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="w-8 h-8 text-white" />
+                    </div>
                   </div>
                   
-                  <div className="flex-grow text-center md:text-left">
-                    <h3 className="text-3xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                      {banner.title}
-                    </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      {banner.description}
-                    </p>
-                  </div>
+                  {/* Content Section */}
+                  <div className="flex-grow p-8 md:p-12 flex flex-col md:flex-row items-center gap-6">
+                    <div className="flex-grow text-center md:text-left">
+                      <h3 className="text-3xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                        {banner.title}
+                      </h3>
+                      <p className="text-lg text-muted-foreground leading-relaxed">
+                        {banner.description}
+                      </p>
+                    </div>
 
-                  <div className="flex-shrink-0">
-                    <IPRegistrationModal defaultType="Music" />
+                    <div className="flex-shrink-0">
+                      <IPRegistrationModal defaultType="Music" />
+                    </div>
                   </div>
                 </div>
                 

@@ -1,6 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { Video, Plane, Gamepad2 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
+import povVideoImg from "@/assets/pov-video.jpg";
+import droneFootageImg from "@/assets/drone-footage.jpg";
+import xrMotionCaptureImg from "@/assets/xr-motion-capture.jpg";
 
 const contentTypes = [
   {
@@ -9,6 +12,7 @@ const contentTypes = [
     description: "First-person perspective footage powering immersive AI training datasets for spatial understanding and human interaction.",
     example: "Street navigation, indoor exploration, sports activities",
     color: "text-primary",
+    image: povVideoImg,
   },
   {
     icon: Plane,
@@ -16,6 +20,7 @@ const contentTypes = [
     description: "Aerial perspectives providing unique vantage points for AI models learning spatial reasoning and environmental mapping.",
     example: "Landscape surveys, urban planning, agricultural monitoring",
     color: "text-accent",
+    image: droneFootageImg,
   },
   {
     icon: Gamepad2,
@@ -23,6 +28,7 @@ const contentTypes = [
     description: "Extended reality data capturing human movement and interactions for next-generation AI understanding of physical behavior.",
     example: "Gesture recognition, full-body tracking, facial expressions",
     color: "text-primary",
+    image: xrMotionCaptureImg,
   },
 ];
 
@@ -45,12 +51,20 @@ export const AIContentTypes = () => {
             return (
               <Card 
                 key={index}
-                className="p-8 bg-gradient-card backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card group"
+                className="p-0 bg-gradient-card backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card group overflow-hidden"
               >
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className={`w-8 h-8 ${type.color}`} />
+                <div className="relative h-48 w-full overflow-hidden">
+                  <img 
+                    src={type.image} 
+                    alt={type.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
+                  <div className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-primary/10 backdrop-blur-sm flex items-center justify-center">
+                    <Icon className={`w-6 h-6 ${type.color}`} />
                   </div>
+                </div>
+                <div className="p-8 flex flex-col items-center text-center">
                   <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
                     {type.title}
                   </h3>
