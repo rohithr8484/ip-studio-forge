@@ -1,8 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { WalletConnect } from "./WalletConnect";
+import { AlchemyWalletConnect } from "./AlchemyWalletConnect";
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +22,11 @@ export const Navigation = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-2"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-primary"></div>
+            <motion.div 
+              className="w-8 h-8 rounded-lg bg-gradient-primary"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ duration: 0.2 }}
+            />
             <span className="text-xl font-bold text-foreground">Surra</span>
           </motion.div>
 
@@ -52,7 +55,7 @@ export const Navigation = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="hidden md:flex items-center gap-4"
           >
-            <WalletConnect />
+            <AlchemyWalletConnect />
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -88,7 +91,7 @@ export const Navigation = () => {
                 How It Works
               </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
-                <WalletConnect />
+                <AlchemyWalletConnect />
               </div>
             </div>
           </motion.div>
