@@ -36,6 +36,11 @@ const uiConfig: AlchemyAccountsUIConfig = {
         {
           type: "external_wallets",
           walletConnect: { projectId: "30e7ffaff99063e68cc9870c105d905b" },
+          wallets: ["wallet_connect", "coinbase wallet"],
+          chainType: ["svm", "evm"],
+          moreButtonText: "More wallets",
+          hideMoreButton: false,
+          numFeaturedWallets: 1,
         },
       ],
     ],
@@ -53,7 +58,7 @@ export const config = createConfig(
     ssr: false,
     enablePopupOauth: true,
   },
-  uiConfig
+  uiConfig,
 );
 
 export const queryClient = new QueryClient();
