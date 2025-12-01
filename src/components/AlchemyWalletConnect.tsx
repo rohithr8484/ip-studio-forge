@@ -47,7 +47,7 @@ export function AlchemyWalletConnect() {
         className="gap-2 bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-glow"
       >
         <Wallet className="h-4 w-4" />
-        Connect Wallet
+        Connect with Alchemy
       </Button>
     </motion.div>
   );
