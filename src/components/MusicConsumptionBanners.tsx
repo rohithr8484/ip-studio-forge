@@ -1,9 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { Music2, Sparkles, Disc3 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
-import musicMemesImg from "@/assets/music-memes.jpg";
-import onchainMixingImg from "@/assets/onchain-mixing.jpg";
-import ipMarketplaceImg from "@/assets/ip-marketplace.jpg";
+import { motion } from "framer-motion";
+import musicMemesImg from "@/assets/music-memes-new.jpg";
+import onchainMixingImg from "@/assets/onchain-mixing-new.jpg";
+import ipMarketplaceImg from "@/assets/ip-marketplace-new.jpg";
 
 const banners = [
   {
@@ -36,7 +37,13 @@ export const MusicConsumptionBanners = () => {
   return (
     <section className="py-24 px-4 bg-background">
       <div className="container mx-auto">
-        <div className="text-center mb-16 animate-fade-in">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <Music2 className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Music IP Consumption</span>
@@ -47,55 +54,68 @@ export const MusicConsumptionBanners = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Streamlined interface designed for seamless IP registration on Story Protocol.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-8">
           {banners.map((banner, index) => {
             const Icon = banner.icon;
             return (
-              <Card 
+              <motion.div
                 key={index}
-                className={`relative overflow-hidden bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
               >
-                <div className="relative z-10 flex flex-col md:flex-row items-center gap-0 md:gap-8">
-                  {/* Image Section */}
-                  <div className="relative w-full md:w-1/3 h-64 md:h-80 overflow-hidden">
-                    <img 
-                      src={banner.image} 
-                      alt={banner.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/80 md:bg-gradient-to-r md:from-transparent md:to-background" />
-                    <div className={`absolute top-4 left-4 w-16 h-16 rounded-2xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-8 h-8 text-white" />
+                <Card 
+                  className={`relative overflow-hidden bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
+                >
+                  <div className="relative z-10 flex flex-col md:flex-row items-center gap-0 md:gap-8">
+                    {/* Image Section */}
+                    <div className="relative w-full md:w-1/3 h-64 md:h-80 overflow-hidden">
+                      <img 
+                        src={banner.image} 
+                        alt={banner.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/80 md:bg-gradient-to-r md:from-transparent md:to-background" />
+                      <div className={`absolute top-4 left-4 w-16 h-16 rounded-2xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+                    
+                    {/* Content Section */}
+                    <div className="flex-grow p-8 md:p-12 flex flex-col md:flex-row items-center gap-6">
+                      <div className="flex-grow text-center md:text-left">
+                        <h3 className="text-3xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                          {banner.title}
+                        </h3>
+                        <p className="text-lg text-muted-foreground leading-relaxed">
+                          {banner.description}
+                        </p>
+                      </div>
+
+                      <div className="flex-shrink-0">
+                        <IPRegistrationModal defaultType="Music" />
+                      </div>
                     </div>
                   </div>
                   
-                  {/* Content Section */}
-                  <div className="flex-grow p-8 md:p-12 flex flex-col md:flex-row items-center gap-6">
-                    <div className="flex-grow text-center md:text-left">
-                      <h3 className="text-3xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                        {banner.title}
-                      </h3>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-                        {banner.description}
-                      </p>
-                    </div>
-
-                    <div className="flex-shrink-0">
-                      <IPRegistrationModal defaultType="Music" />
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Decorative gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </Card>
+                  {/* Decorative gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </Card>
+              </motion.div>
             );
           })}
         </div>
 
-        <div className="mt-16 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16 text-center"
+        >
           <div className="inline-flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -110,7 +130,7 @@ export const MusicConsumptionBanners = () => {
               <span>Instant IP Registration</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

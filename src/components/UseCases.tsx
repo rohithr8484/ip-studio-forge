@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Palette, Music, FileText, Video, Code, Image } from "lucide-react";
+import { motion } from "framer-motion";
 
 const useCases = [
   {
@@ -44,33 +45,46 @@ export const UseCases = () => {
   return (
     <section className="py-24 px-4 relative">
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Popular IP × AI Use Cases
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Explore how creators are leveraging AI with blockchain-based IP protection
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon;
             return (
-              <Card 
+              <motion.div
                 key={index}
-                className="p-6 bg-gradient-card backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card group cursor-pointer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className={`w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon className={`w-6 h-6 ${useCase.color}`} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
-                  {useCase.title}
-                </h3>
-                <p className="text-muted-foreground">
-                  {useCase.description}
-                </p>
-              </Card>
+                <Card 
+                  className="p-6 bg-gradient-card backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card group cursor-pointer"
+                >
+                  <div className={`w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className={`w-6 h-6 ${useCase.color}`} />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
+                    {useCase.title}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {useCase.description}
+                  </p>
+                </Card>
+              </motion.div>
             );
           })}
         </div>
