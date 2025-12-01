@@ -19,28 +19,42 @@ serve(async (req) => {
     }
 
     console.log("Starting chat request with ABV gateway");
+    console.log("ABV API Key exists:", !!ABV_API_KEY);
+    console.log("Messages count:", messages.length);
 
-    const response = await fetch("https://app.abv.dev/v1/chat/completions", {
+    const requestBody = {
+      provider: "openai",
+      model: "gpt-4o-mini",
+      messages: [
+        { 
+          role: "system", 
+          content: "You are a helpful AI assistant for Surra, a platform for registering intellectual property on Story Protocol. Help users understand IP registration, music rights, AI training data, and blockchain-based content management." 
+        },
+        ...messages,
+      ],
+      stream: true,
+    };
+
+    console.log("Request body:", JSON.stringify(requestBody, null, 2));
+
+    const response = await fetch("https://app.abv.dev/api/v1/gateway/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${ABV_API_KEY}`,
         "Content-Type": "application/json",
+        "X-ABV-Region": "us",
       },
-      body: JSON.stringify({
-        provider: "openai",
-        model: "gpt-4o-mini",
-        messages: [
-          { 
-            role: "system", 
-            content: "You are a helpful AI assistant for Surra, a platform for registering intellectual property on Story Protocol. Help users understand IP registration, music rights, AI training data, and blockchain-based content management." 
-          },
-          ...messages,
-        ],
-        stream: true,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
+    console.log("ABV Response status:", response.status);
+    console.log("ABV Response headers:", JSON.stringify(Object.fromEntries(response.headers.entries())));
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("ABV gateway error - Status:", response.status);
+      console.error("ABV gateway error - Body:", errorText);
+      
       if (response.status === 429) {
         return new Response(
           JSON.stringify({ error: "Rate limits exceeded, please try again later." }),
@@ -59,10 +73,13 @@ serve(async (req) => {
           }
         );
       }
-      const errorText = await response.text();
-      console.error("ABV gateway error:", response.status, errorText);
+      
       return new Response(
-        JSON.stringify({ error: "AI gateway error" }),
+        JSON.stringify({ 
+          error: "AI gateway error", 
+          details: errorText,
+          status: response.status 
+        }),
         {
           status: 500,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
