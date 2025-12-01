@@ -1,9 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
-import { ChallengeDescription } from "@/components/ChallengeDescription";
 
 import { AIContentTypes } from "@/components/AIContentTypes";
-import { HowItWorks } from "@/components/HowItWorks";
 
 import { MusicFeatures } from "@/components/MusicFeatures";
 import { MusicConsumptionBanners } from "@/components/MusicConsumptionBanners";
@@ -14,13 +12,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       <Hero />
-      <div id="challenge">
-        <ChallengeDescription />
-      </div>
       <AIContentTypes />
-      <div id="how-it-works">
-        <HowItWorks />
-      </div>
       <div id="music">
         <MusicFeatures />
       </div>
