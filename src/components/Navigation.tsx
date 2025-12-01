@@ -2,6 +2,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { AlchemyWalletConnect } from "./AlchemyWalletConnect";
+import { WalletConnect } from "./WalletConnect";
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,21 +41,16 @@ export const Navigation = () => {
             <a href="#challenge" className="story-link text-muted-foreground hover:text-foreground transition-colors">
               Challenge
             </a>
-            <a href="#use-cases" className="story-link text-muted-foreground hover:text-foreground transition-colors">
-              Use Cases
-            </a>
-            <a href="#how-it-works" className="story-link text-muted-foreground hover:text-foreground transition-colors">
-              How It Works
-            </a>
           </motion.div>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA - Both wallet options */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="hidden md:flex items-center gap-4"
+            className="hidden md:flex items-center gap-3"
           >
+            <WalletConnect />
             <AlchemyWalletConnect />
           </motion.div>
 
@@ -84,13 +80,8 @@ export const Navigation = () => {
               <a href="#challenge" className="story-link text-muted-foreground hover:text-foreground transition-colors py-2">
                 Challenge
               </a>
-              <a href="#use-cases" className="story-link text-muted-foreground hover:text-foreground transition-colors py-2">
-                Use Cases
-              </a>
-              <a href="#how-it-works" className="story-link text-muted-foreground hover:text-foreground transition-colors py-2">
-                How It Works
-              </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
+                <WalletConnect />
                 <AlchemyWalletConnect />
               </div>
             </div>
