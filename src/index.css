@@ -218,31 +218,3 @@ All colors MUST be HSL.
   background: hsl(192 91% 48% / 0.3);
   color: hsl(210 40% 98%);
 }
-
-/* Alchemy Modal White Background */
-[data-radix-portal] [role="dialog"],
-[data-radix-portal] [data-state="open"],
-[data-radix-popper-content-wrapper] > div,
-[role="dialog"][aria-modal="true"],
-.akui-modal,
-[class*="Modal"],
-[class*="modal"] {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  color: #1a1a1a !important;
-}
-
-/* Alchemy modal container */
-[data-radix-portal] {
-  --akui-bg-primary: #ffffff !important;
-  --akui-bg-secondary: #f5f5f5 !important;
-  --akui-text-primary: #1a1a1a !important;
-  --akui-text-secondary: #666666 !important;
-}
-
-/* Force white background on modal content */
-[data-radix-portal] > div > div {
-  background: #ffffff !important;
-  border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
