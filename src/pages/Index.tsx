@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 
 import { AIContentTypes } from "@/components/AIContentTypes";
 
-import { MusicFeatures } from "@/components/MusicFeatures";
 import { MusicConsumptionBanners } from "@/components/MusicConsumptionBanners";
 import { ChatBot } from "@/components/ChatBot";
 import { CTA } from "@/components/CTA";
@@ -16,9 +15,8 @@ const Index = () => {
       <Hero />
       <AIContentTypes />
       <div id="music">
-        <MusicFeatures />
+        <MusicConsumptionBanners />
       </div>
-      <MusicConsumptionBanners />
       <ChatBot />
       <CTA />
       

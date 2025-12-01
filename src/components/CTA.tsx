@@ -41,15 +41,13 @@ export const CTA = () => {
             </span>
           </motion.h2>
           
-          <motion.p 
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
-          >
-            Join thousands of creators leveraging AI and blockchain to build, protect, and monetize their intellectual property.
-          </motion.p>
+            className="mb-8"
+          />
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
