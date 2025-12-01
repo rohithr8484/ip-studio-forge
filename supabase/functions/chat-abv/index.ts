@@ -12,45 +12,34 @@ serve(async (req) => {
 
   try {
     const { messages } = await req.json();
-    const ABV_API_KEY = Deno.env.get("ABV_API_KEY");
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
-    if (!ABV_API_KEY) {
-      throw new Error("ABV_API_KEY is not configured");
+    if (!LOVABLE_API_KEY) {
+      throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    console.log("Starting chat request with ABV API");
+    console.log("Starting chat request with Lovable AI");
 
-    const allMessages = [
-      { 
-        role: "system", 
-        content: "You are a helpful AI assistant for Surra, a platform for registering intellectual property on Story Protocol. Help users understand IP registration, music rights, AI training data, and blockchain-based content management." 
-      },
-      ...messages,
-    ];
-
-    // Try ABV gateway endpoint (based on SDK structure)
-    const response = await fetch("https://app.abv.dev/gateway/openai/v1/chat/completions", {
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${ABV_API_KEY}`,
+        Authorization: `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
-        "x-abv-region": "us",
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: allMessages,
+        model: "google/gemini-2.5-flash",
+        messages: [
+          { 
+            role: "system", 
+            content: "You are a helpful AI assistant for Surra, a platform for registering intellectual property on Story Protocol. Help users understand IP registration, music rights, AI training data, and blockchain-based content management." 
+          },
+          ...messages,
+        ],
         stream: true,
       }),
     });
 
-    console.log("ABV Response status:", response.status);
-    console.log("ABV Response headers:", JSON.stringify(Object.fromEntries(response.headers.entries())));
-
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("ABV API error - Status:", response.status);
-      console.error("ABV API error - Body:", errorText);
-      
       if (response.status === 429) {
         return new Response(
           JSON.stringify({ error: "Rate limits exceeded, please try again later." }),
@@ -62,45 +51,31 @@ serve(async (req) => {
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: "Payment required, please add funds to your ABV account." }),
+          JSON.stringify({ error: "Payment required, please add credits to your Lovable AI workspace." }),
           {
             status: 402,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
           }
         );
       }
-      
+      const errorText = await response.text();
+      console.error("AI gateway error:", response.status, errorText);
       return new Response(
-        JSON.stringify({ 
-          error: "ABV API error", 
-          details: errorText,
-          status: response.status 
-        }),
+        JSON.stringify({ error: "AI gateway error" }),
         {
-          status: response.status,
+          status: 500,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
       );
     }
 
-    // Return the stream
     return new Response(response.body, {
-      headers: { 
-        ...corsHeaders, 
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive"
-      },
+      headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
-
   } catch (e) {
-    console.error("chat-abv error:", e);
-    console.error("Error stack:", e instanceof Error ? e.stack : "No stack");
+    console.error("chat error:", e);
     return new Response(
-      JSON.stringify({ 
-        error: e instanceof Error ? e.message : "Unknown error",
-        details: e instanceof Error ? e.stack : undefined
-      }),
+      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
