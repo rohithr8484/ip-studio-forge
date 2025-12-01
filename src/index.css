@@ -218,20 +218,3 @@ All colors MUST be HSL.
   background: hsl(192 91% 48% / 0.3);
   color: hsl(210 40% 98%);
 }
-
-/* Alchemy Account Kit color overrides */
-:root {
-  --akui-btn-primary: #ffffff;
-  --akui-fg-accent-brand: #ffffff;
-}
-
-[data-akui-modal] [data-akui-btn-primary],
-[class*="akui-btn-primary"] {
-  background-color: #ffffff !important;
-  color: #363FF9 !important;
-}
-
-[data-akui-modal] [data-akui-fg-accent-brand],
-[class*="fg-accent-brand"] {
-  color: #ffffff !important;
-}
