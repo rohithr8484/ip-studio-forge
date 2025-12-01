@@ -2,9 +2,9 @@ import { Card } from "@/components/ui/card";
 import { Music2, Sparkles, Disc3 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
 import { motion } from "framer-motion";
-import musicMemesImg from "@/assets/music-memes-hero.jpg";
-import onchainMixingImg from "@/assets/mixing-tech-hero.jpg";
-import ipMarketplaceImg from "@/assets/ip-marketplace-hero.jpg";
+import storyMushyverse from "@/assets/story-mushyverse.webp";
+import storyEmergence from "@/assets/story-emergence.webp";
+import storyMimboku from "@/assets/story-mimboku.webp";
 
 const banners = [
   {
@@ -12,21 +12,21 @@ const banners = [
     title: "Synching Music to Memes",
     gradient: "from-pink-500/20 via-purple-500/20 to-blue-500/20",
     iconGradient: "from-pink-500 to-purple-500",
-    image: musicMemesImg,
+    image: storyMushyverse,
   },
   {
     icon: Disc3,
     title: "On-Chain Music Mixing Tech",
     gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20",
     iconGradient: "from-blue-500 to-cyan-500",
-    image: onchainMixingImg,
+    image: storyEmergence,
   },
   {
     icon: Sparkles,
     title: "IP Consumption Marketplace",
     gradient: "from-amber-500/20 via-orange-500/20 to-red-500/20",
     iconGradient: "from-amber-500 to-orange-500",
-    image: ipMarketplaceImg,
+    image: storyMimboku,
   },
 ];
 
