@@ -41,7 +41,6 @@ const uiConfig: AlchemyAccountsUIConfig = {
     ],
     addPasskeyOnSignup: false,
   },
-  modalBaseClassName: "alchemy-dark-modal",
 };
 
 // Get API key from environment
