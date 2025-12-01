@@ -34,17 +34,14 @@ export const Navigation = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="hidden md:flex items-center gap-8"
           >
-            <a href="#challenge" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#challenge" className="story-link text-muted-foreground hover:text-foreground transition-colors">
               Challenge
             </a>
-            <a href="#use-cases" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#use-cases" className="story-link text-muted-foreground hover:text-foreground transition-colors">
               Use Cases
             </a>
-            <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#how-it-works" className="story-link text-muted-foreground hover:text-foreground transition-colors">
               How It Works
-            </a>
-            <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
-              Features
             </a>
           </motion.div>
 
@@ -56,7 +53,6 @@ export const Navigation = () => {
             className="hidden md:flex items-center gap-4"
           >
             <WalletConnect />
-            <Button variant="hero">Get Started</Button>
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -82,21 +78,17 @@ export const Navigation = () => {
             className="md:hidden py-4 border-t border-border/50"
           >
             <div className="flex flex-col gap-4">
-              <a href="#challenge" className="text-muted-foreground hover:text-foreground transition-colors py-2">
+              <a href="#challenge" className="story-link text-muted-foreground hover:text-foreground transition-colors py-2">
                 Challenge
               </a>
-              <a href="#use-cases" className="text-muted-foreground hover:text-foreground transition-colors py-2">
+              <a href="#use-cases" className="story-link text-muted-foreground hover:text-foreground transition-colors py-2">
                 Use Cases
               </a>
-              <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors py-2">
+              <a href="#how-it-works" className="story-link text-muted-foreground hover:text-foreground transition-colors py-2">
                 How It Works
-              </a>
-              <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors py-2">
-                Features
               </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
                 <WalletConnect />
-                <Button variant="hero" className="w-full">Get Started</Button>
               </div>
             </div>
           </motion.div>

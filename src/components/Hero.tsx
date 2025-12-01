@@ -18,15 +18,44 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/80 to-background"></div>
       </div>
 
+      {/* Floating Gradient Orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute bottom-20 right-20 w-96 h-96 bg-accent/30 rounded-full blur-3xl"
+        />
+      </div>
+
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-20 text-center">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 hover-scale"
         >
-          <Sparkles className="w-4 h-4 text-primary" />
+          <Sparkles className="w-4 h-4 text-primary animate-pulse" />
           <span className="text-sm font-medium text-foreground">Powered by Story Protocol</span>
         </motion.div>
 
@@ -38,7 +67,7 @@ export const Hero = () => {
         >
           AI-Powered IP Creation
           <br />
-          <span className="text-primary">Protected on Blockchain</span>
+          <span className="text-primary animate-fade-in">Protected on Blockchain</span>
         </motion.h1>
 
         <motion.p 
@@ -72,8 +101,10 @@ export const Hero = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              className="cursor-pointer"
             >
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2 hover-scale">{stat.value}</div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </motion.div>
           ))}
@@ -85,10 +116,20 @@ export const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
       >
-        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-primary rounded-full"></div>
+        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex items-start justify-center p-2 hover:border-primary transition-colors">
+          <motion.div 
+            animate={{
+              y: [0, 12, 0]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="w-1 h-3 bg-primary rounded-full"
+          />
         </div>
       </motion.div>
     </section>

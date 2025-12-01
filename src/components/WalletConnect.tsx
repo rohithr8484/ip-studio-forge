@@ -1,6 +1,7 @@
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { Button } from '@/components/ui/button';
 import { Wallet, LogOut } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export function WalletConnect() {
   const { address, isConnected } = useAccount();
@@ -9,24 +10,36 @@ export function WalletConnect() {
 
   if (isConnected && address) {
     return (
-      <Button
-        onClick={() => disconnect()}
-        variant="outline"
-        className="gap-2"
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
       >
-        <LogOut className="h-4 w-4" />
-        {address.slice(0, 6)}...{address.slice(-4)}
-      </Button>
+        <Button
+          onClick={() => disconnect()}
+          variant="outline"
+          className="gap-2"
+        >
+          <LogOut className="h-4 w-4" />
+          {address.slice(0, 6)}...{address.slice(-4)}
+        </Button>
+      </motion.div>
     );
   }
 
   return (
-    <Button
-      onClick={() => connect({ connector: connectors[0] })}
-      className="gap-2"
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3 }}
     >
-      <Wallet className="h-4 w-4" />
-      Connect Wallet
-    </Button>
+      <Button
+        onClick={() => connect({ connector: connectors[0] })}
+        className="gap-2"
+      >
+        <Wallet className="h-4 w-4" />
+        Connect Wallet
+      </Button>
+    </motion.div>
   );
 }
