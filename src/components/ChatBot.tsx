@@ -243,7 +243,7 @@ export const ChatBot = () => {
               <div className="bg-gradient-to-r from-primary to-primary/80 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <MessageCircle className="h-5 w-5 text-white" />
-                  <h3 className="font-semibold text-white">Surra AI Assistant</h3>
+                  <h3 className="font-semibold text-white">Creative Front-End - Surra AI Assistant</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
