@@ -23,7 +23,6 @@ serve(async (req) => {
     console.log("Messages count:", messages.length);
 
     const requestBody = {
-      provider: "openai",
       model: "gpt-4o-mini",
       messages: [
         { 
@@ -37,12 +36,11 @@ serve(async (req) => {
 
     console.log("Request body:", JSON.stringify(requestBody, null, 2));
 
-    const response = await fetch("https://app.abv.dev/api/v1/gateway/chat/completions", {
+    const response = await fetch("https://app.abv.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${ABV_API_KEY}`,
         "Content-Type": "application/json",
-        "X-ABV-Region": "us",
       },
       body: JSON.stringify(requestBody),
     });
