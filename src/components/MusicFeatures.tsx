@@ -54,11 +54,10 @@ export const MusicFeatures = () => {
             <span className="text-sm font-medium text-primary">Music IP Innovation</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Create, Mix & Protect Music IP
+            1. Web/Mobile apps optimized for easy IP Registration
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Revolutionary on-chain music creation platform powered by Story Protocol. 
-            Turn stems into hits, protect every remix, and earn from every play.
+            Streamlined interface designed for seamless IP registration on Story Protocol.
           </p>
         </div>
 
@@ -88,7 +87,7 @@ export const MusicFeatures = () => {
         {/* Benefits Section */}
         <div className="bg-card/30 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-border/50 mb-12">
           <h3 className="text-3xl font-bold text-center mb-12 text-foreground">
-            Why Choose Reality Forge for Music
+            1. Web/Mobile apps optimized for easy IP Registration
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => {

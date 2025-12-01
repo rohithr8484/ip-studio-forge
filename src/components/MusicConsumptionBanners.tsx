@@ -42,10 +42,10 @@ export const MusicConsumptionBanners = () => {
             <span className="text-sm font-medium text-primary">Music IP Consumption</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Every Sound, Every Right, On-Chain
+            1. Web/Mobile apps optimized for easy IP Registration
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            From viral memes to custom ringtones, every use of your music is tracked, protected, and monetized through Story Protocol
+            Streamlined interface designed for seamless IP registration on Story Protocol.
           </p>
         </div>
 
