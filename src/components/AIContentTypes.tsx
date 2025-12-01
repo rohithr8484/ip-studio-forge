@@ -38,7 +38,7 @@ export const AIContentTypes = () => {
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            The Future of AI is Crowdsourced
+            The Future of AI is Crowdsourced, Data isn't just quantity, it's quality, structure, and licensing.
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Powering next-generation AI with rights-cleared, on-chain registered content from real-world perspectives
