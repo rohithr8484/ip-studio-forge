@@ -59,3 +59,6 @@ inspector_port = 8083
 
 [functions.register-ip]
 verify_jwt = false
+
+[functions.chat-abv]
+verify_jwt = false

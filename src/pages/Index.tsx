@@ -5,6 +5,7 @@ import { AIContentTypes } from "@/components/AIContentTypes";
 
 import { MusicFeatures } from "@/components/MusicFeatures";
 import { MusicConsumptionBanners } from "@/components/MusicConsumptionBanners";
+import { ChatBot } from "@/components/ChatBot";
 import { CTA } from "@/components/CTA";
 
 const Index = () => {
@@ -17,6 +18,7 @@ const Index = () => {
         <MusicFeatures />
       </div>
       <MusicConsumptionBanners />
+      <ChatBot />
       <CTA />
       
       {/* Footer */}
