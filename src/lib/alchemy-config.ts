@@ -21,7 +21,7 @@ export const storyAeneidTestnet = defineChain({
   testnet: true,
 });
 
-// UI config for Alchemy Account Kit
+// UI config for Alchemy Account Kit with dark styling
 const uiConfig: AlchemyAccountsUIConfig = {
   illustrationStyle: "outline",
   auth: {
@@ -38,6 +38,7 @@ const uiConfig: AlchemyAccountsUIConfig = {
     ],
     addPasskeyOnSignup: false,
   },
+  modalBaseClassName: "alchemy-dark-modal",
 };
 
 // Get API key from environment
@@ -46,7 +47,7 @@ const apiKey = import.meta.env.VITE_ALCHEMY_API_KEY || "UAY-aXY7hgAI5oTxXdtVcW1o
 export const alchemyConfig = createConfig(
   {
     transport: alchemy({ apiKey }),
-    chain: sepolia, // Use sepolia for Alchemy, Story testnet for IP registration
+    chain: sepolia,
     ssr: false,
   },
   uiConfig
