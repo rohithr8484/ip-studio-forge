@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Music2, Sparkles, Disc3 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
+import { RemixMusicModal } from "./RemixMusicModal";
 import { motion } from "framer-motion";
 import storyMushyverse from "@/assets/story-mushyverse.webp";
 import storyEmergence from "@/assets/story-emergence.webp";
@@ -89,8 +90,9 @@ export const MusicConsumptionBanners = () => {
                         </h3>
                       </div>
 
-                      <div className="flex-shrink-0">
+                      <div className="flex flex-col gap-3 flex-shrink-0">
                         <IPRegistrationModal defaultType="Music" />
+                        <RemixMusicModal defaultType="remix" />
                       </div>
                     </div>
                   </div>
@@ -122,6 +124,10 @@ export const MusicConsumptionBanners = () => {
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span>Instant IP Registration</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span>PIL License Flavors</span>
             </div>
           </div>
         </motion.div>
