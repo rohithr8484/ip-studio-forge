@@ -96,10 +96,10 @@ export const AIContentTypes = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Data - The Future of AI is Crowdsourced, Data isn't just quantity, it's quality, structure, and licensing.
+            Register Your Data as IP on Story Protocol
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Powering next-generation AI with rights-cleared, on-chain registered content from real-world perspectives
+            PoV videos, drone footage, motion captures from XR, and other data samples — all rights-cleared and registered as IP for AI training
           </p>
         </motion.div>
 
