@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, Send, X, Minimize2, Maximize2, FileText } from "lucide-react";
+import { MessageCircle, Send, X, Minimize2, Maximize2, FileText, Image, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -13,7 +13,7 @@ import { custom, toHex } from "viem";
 import { storyAeneidTestnet } from "@/lib/web3-config";
 import { WalletConnect } from "@/components/WalletConnect";
 
-type Message = { role: "user" | "assistant"; content: string };
+type Message = { role: "user" | "assistant"; content: string; image?: string };
 
 export const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,8 +24,24 @@ export const ChatBot = () => {
   const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
   const [selectedContent, setSelectedContent] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "Error", description: "Image must be under 5MB", variant: "destructive" });
+      return;
+    }
+    
+    const reader = new FileReader();
+    reader.onloadend = () => setSelectedImage(reader.result as string);
+    reader.readAsDataURL(file);
+  };
   
   const { isConnected, address, chain } = useAccount();
   const { data: walletClient } = useWalletClient();
@@ -42,13 +58,27 @@ export const ChatBot = () => {
 
   const streamChat = async (userMessage: Message) => {
     try {
+      // Format messages for multimodal support
+      const formattedMessages = [...messages, userMessage].map(msg => {
+        if (msg.image) {
+          return {
+            role: msg.role,
+            content: [
+              { type: "text", text: msg.content || "What's in this image?" },
+              { type: "image_url", image_url: { url: msg.image } }
+            ]
+          };
+        }
+        return { role: msg.role, content: msg.content };
+      });
+
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ messages: formattedMessages }),
       });
 
       if (resp.status === 429 || resp.status === 402) {
@@ -127,11 +157,17 @@ export const ChatBot = () => {
   };
 
   const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+    if ((!input.trim() && !selectedImage) || isLoading) return;
 
-    const userMessage: Message = { role: "user", content: input.trim() };
+    const userMessage: Message = { 
+      role: "user", 
+      content: input.trim() || "What's in this image?",
+      image: selectedImage || undefined
+    };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setSelectedImage(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
     setIsLoading(true);
 
     await streamChat(userMessage);
@@ -296,6 +332,9 @@ export const ChatBot = () => {
                                   : "bg-muted text-foreground"
                               }`}
                             >
+                              {msg.image && (
+                                <img src={msg.image} alt="Uploaded" className="max-w-full rounded-lg mb-2" />
+                              )}
                               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                             </div>
                             {msg.role === "assistant" && !isLoading && (
@@ -332,22 +371,49 @@ export const ChatBot = () => {
 
                   {/* Input Area */}
                   <div className="p-4 border-t border-border bg-background">
+                    {selectedImage && (
+                      <div className="mb-2 relative inline-block">
+                        <img src={selectedImage} alt="Selected" className="h-16 rounded-lg" />
+                        <button 
+                          onClick={() => { setSelectedImage(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                          className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    )}
                     <div className="flex gap-2">
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        accept="image/*"
+                        onChange={handleImageSelect}
+                        className="hidden"
+                      />
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isLoading}
+                        className="shrink-0"
+                      >
+                        <Image className="h-4 w-4" />
+                      </Button>
                       <Input
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                        placeholder="Type your message..."
+                        placeholder={selectedImage ? "Describe or ask about the image..." : "Type your message..."}
                         disabled={isLoading}
                         className="flex-1"
                       />
                       <Button
                         onClick={sendMessage}
-                        disabled={!input.trim() || isLoading}
+                        disabled={(!input.trim() && !selectedImage) || isLoading}
                         size="icon"
                         className="bg-primary hover:bg-primary/90"
                       >
-                        <Send className="h-4 w-4" />
+                        {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                       </Button>
                     </div>
                   </div>

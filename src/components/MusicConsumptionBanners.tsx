@@ -47,10 +47,10 @@ export const MusicConsumptionBanners = () => {
             <span className="text-sm font-medium text-primary">Music IP Consumption</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Creative Front-End - 1. Web/Mobile apps optimized for easy IP Registration
+            Register PoV Videos, Drone Footage & XR Motion Captures
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Streamlined interface designed for seamless IP registration on Story Protocol.
+            Transform crowdsourced content into rights-cleared, on-chain registered IP on Story Protocol.
           </p>
         </motion.div>
 
