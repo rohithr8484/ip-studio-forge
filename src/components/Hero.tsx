@@ -107,7 +107,7 @@ export const Hero = () => {
           className="text-5xl md:text-7xl font-bold mb-6"
         >
           <span className="bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-            AI-Powered IP Creation
+            Creative Front-End + Data
           </span>
           <br />
           <motion.span 
@@ -125,7 +125,7 @@ export const Hero = () => {
               ease: "easeInOut",
             }}
           >
-            Protected on Blockchain
+            IP Creation & Remix Challenge
           </motion.span>
         </motion.h1>
 
