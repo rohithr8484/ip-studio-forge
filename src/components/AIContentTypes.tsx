@@ -99,7 +99,7 @@ const contentTypes = [
     example: "Indoor rock climbing",
     color: "text-primary",
     image: povClimbing,
-    video: undefined, // Add your video file
+    video: "/videos/pov-climbing.mp4",
   },
   {
     icon: Video,
@@ -108,7 +108,7 @@ const contentTypes = [
     example: "Scenic road driving",
     color: "text-primary",
     image: povDriving,
-    video: undefined, // Add your video file
+    video: "/videos/pov-driving.mp4",
   },
   {
     icon: Plane,
@@ -126,7 +126,7 @@ const contentTypes = [
     example: "Agricultural monitoring",
     color: "text-accent",
     image: droneFarm,
-    video: undefined, // Add your video file
+    video: "/videos/sample-3.mp4",
   },
   {
     icon: Plane,
@@ -135,7 +135,7 @@ const contentTypes = [
     example: "Coastal survey",
     color: "text-accent",
     image: droneCoast,
-    video: undefined, // Add your video file
+    video: "/videos/drone-coast.mp4",
   },
   {
     icon: Gamepad2,
@@ -144,7 +144,7 @@ const contentTypes = [
     example: "Full-body dance tracking",
     color: "text-primary",
     image: xrDance,
-    video: undefined, // Add your video file
+    video: "/videos/xr-dance.mp4",
   },
   {
     icon: Gamepad2,
@@ -153,7 +153,7 @@ const contentTypes = [
     example: "Gesture recognition",
     color: "text-primary",
     image: xrGesture,
-    video: undefined, // Add your video file
+    video: "/videos/pov-climbing.mp4",
   },
   {
     icon: Gamepad2,
@@ -162,7 +162,7 @@ const contentTypes = [
     example: "Facial expressions",
     color: "text-primary",
     image: xrFacial,
-    video: undefined, // Add your video file
+    video: "/videos/pov-driving.mp4",
   },
 ];
 

@@ -96,8 +96,8 @@ const banners = [
     gradient: "from-pink-500/20 via-purple-500/20 to-blue-500/20",
     iconGradient: "from-pink-500 to-purple-500",
     ringtones: [
-      { cover: musicIp1, title: "Ringtone 1" },
-      { cover: musicIp2, title: "Ringtone 2" },
+      { cover: musicIp1, title: "Ringtone 1", audio: "/audio/ringtone-1.mp3" },
+      { cover: musicIp2, title: "Ringtone 2", audio: "/audio/ringtone-2.mp3" },
     ],
   },
   {
@@ -106,8 +106,8 @@ const banners = [
     gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20",
     iconGradient: "from-blue-500 to-cyan-500",
     ringtones: [
-      { cover: musicIp3, title: "Ringtone 1" },
-      { cover: musicIp4, title: "Ringtone 2" },
+      { cover: musicIp3, title: "Ringtone 1", audio: "/audio/ringtone-3.mp3" },
+      { cover: musicIp4, title: "Ringtone 2", audio: "/audio/ringtone-4.mp3" },
     ],
   },
   {
@@ -116,8 +116,8 @@ const banners = [
     gradient: "from-amber-500/20 via-orange-500/20 to-red-500/20",
     iconGradient: "from-amber-500 to-orange-500",
     ringtones: [
-      { cover: musicIp5, title: "Ringtone 1" },
-      { cover: musicIp6, title: "Ringtone 2" },
+      { cover: musicIp5, title: "Ringtone 1", audio: "/audio/ringtone-5.mp3" },
+      { cover: musicIp6, title: "Ringtone 2", audio: "/audio/ringtone-6.mp3" },
     ],
   },
 ];
@@ -165,6 +165,7 @@ export const MusicConsumptionBanners = () => {
                       {banner.ringtones.map((ringtone, idx) => (
                         <AudioPlayer
                           key={idx}
+                          audioSrc={ringtone.audio}
                           coverImage={ringtone.cover}
                           title={`${banner.title} ${ringtone.title}`}
                         />
