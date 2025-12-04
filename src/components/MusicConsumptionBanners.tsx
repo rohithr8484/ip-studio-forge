@@ -3,9 +3,12 @@ import { Music2, Sparkles, Disc3 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
 import { RemixMusicModal } from "./RemixMusicModal";
 import { motion } from "framer-motion";
-import storyMushyverse from "@/assets/story-mushyverse.webp";
-import storyEmergence from "@/assets/story-emergence.webp";
-import storyMimboku from "@/assets/story-mimboku.webp";
+import ringtone1 from "@/assets/ringtone-1.jpg";
+import ringtone2 from "@/assets/ringtone-2.jpg";
+import ringtone3 from "@/assets/ringtone-3.jpg";
+import ringtone4 from "@/assets/ringtone-4.jpg";
+import ringtone5 from "@/assets/ringtone-5.jpg";
+import ringtone6 from "@/assets/ringtone-6.jpg";
 
 const banners = [
   {
@@ -13,21 +16,21 @@ const banners = [
     title: "Synching Music to Memes",
     gradient: "from-pink-500/20 via-purple-500/20 to-blue-500/20",
     iconGradient: "from-pink-500 to-purple-500",
-    image: storyMushyverse,
+    images: [ringtone1, ringtone5],
   },
   {
     icon: Disc3,
     title: "On-Chain Music Mixing Tech",
     gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20",
     iconGradient: "from-blue-500 to-cyan-500",
-    image: storyEmergence,
+    images: [ringtone2, ringtone4],
   },
   {
     icon: Sparkles,
     title: "IP Consumption Marketplace",
     gradient: "from-amber-500/20 via-orange-500/20 to-red-500/20",
     iconGradient: "from-amber-500 to-orange-500",
-    image: storyMimboku,
+    images: [ringtone3, ringtone6],
   },
 ];
 
@@ -47,10 +50,10 @@ export const MusicConsumptionBanners = () => {
             <span className="text-sm font-medium text-primary">Music IP Consumption</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Register PoV Videos, Drone Footage & XR Motion Captures
+            Creative Frontend
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Transform crowdsourced content into rights-cleared, on-chain registered IP on Story Protocol.
+            Music-focused tech that involves the consumption of IP
           </p>
         </motion.div>
 
@@ -69,13 +72,17 @@ export const MusicConsumptionBanners = () => {
                   className={`relative overflow-hidden bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
                 >
                   <div className="relative z-10 flex flex-col md:flex-row items-center gap-0 md:gap-8">
-                    {/* Image Section */}
-                    <div className="relative w-full md:w-1/2 h-80 md:h-[500px] overflow-hidden">
-                      <img 
-                        src={banner.image} 
-                        alt={banner.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
+                    {/* Image Section - Now showing 2 images */}
+                    <div className="relative w-full md:w-1/2 h-80 md:h-[500px] overflow-hidden flex">
+                      {banner.images.map((img, imgIndex) => (
+                        <div key={imgIndex} className="relative w-1/2 h-full">
+                          <img 
+                            src={img} 
+                            alt={`${banner.title} ${imgIndex + 1}`}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                        </div>
+                      ))}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/60 md:bg-gradient-to-r md:from-transparent md:to-background/80" />
                       <div className={`absolute top-6 left-6 w-20 h-20 rounded-2xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-glow`}>
                         <Icon className="w-10 h-10 text-white" />
