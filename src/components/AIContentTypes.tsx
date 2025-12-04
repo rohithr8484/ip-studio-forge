@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
-import { Video, Plane, Gamepad2 } from "lucide-react";
+import { Video, Plane, Gamepad2, Play, Pause } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
 import { motion } from "framer-motion";
+import { useState, useRef } from "react";
 import povUrban from "@/assets/pov-urban.jpg";
 import povClimbing from "@/assets/pov-climbing.jpg";
 import povDriving from "@/assets/pov-driving-new.jpg";
@@ -12,6 +13,75 @@ import xrDance from "@/assets/xr-dance-new.jpg";
 import xrGesture from "@/assets/xr-gesture.jpg";
 import xrFacial from "@/assets/xr-facial.jpg";
 
+// Video player component
+const VideoPlayer = ({ 
+  videoSrc, 
+  posterImage, 
+  title 
+}: { 
+  videoSrc?: string; 
+  posterImage: string; 
+  title: string;
+}) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+  };
+
+  return (
+    <div className="relative h-48 w-full overflow-hidden group/video">
+      {videoSrc ? (
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          poster={posterImage}
+          className="w-full h-full object-cover"
+          onEnded={handleEnded}
+          muted
+          loop
+          playsInline
+        />
+      ) : (
+        <img 
+          src={posterImage} 
+          alt={title}
+          className="w-full h-full object-cover"
+        />
+      )}
+      <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover/video:opacity-100 transition-opacity duration-300">
+        <button 
+          onClick={togglePlay}
+          className="w-14 h-14 rounded-full bg-primary/90 hover:bg-primary flex items-center justify-center transition-all hover:scale-110"
+        >
+          {isPlaying ? (
+            <Pause className="w-6 h-6 text-primary-foreground" />
+          ) : (
+            <Play className="w-6 h-6 text-primary-foreground ml-1" />
+          )}
+        </button>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent pointer-events-none" />
+      {/* Video duration badge */}
+      <div className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/70 text-xs text-white">
+        {videoSrc ? "10-30s" : "Sample"}
+      </div>
+    </div>
+  );
+};
+
 const contentTypes = [
   {
     icon: Video,
@@ -20,6 +90,7 @@ const contentTypes = [
     example: "Urban street navigation",
     color: "text-primary",
     image: povUrban,
+    video: "/videos/pov-urban.mp4",
   },
   {
     icon: Video,
@@ -28,6 +99,7 @@ const contentTypes = [
     example: "Indoor rock climbing",
     color: "text-primary",
     image: povClimbing,
+    video: undefined, // Add your video file
   },
   {
     icon: Video,
@@ -36,6 +108,7 @@ const contentTypes = [
     example: "Scenic road driving",
     color: "text-primary",
     image: povDriving,
+    video: undefined, // Add your video file
   },
   {
     icon: Plane,
@@ -44,6 +117,7 @@ const contentTypes = [
     example: "City skyline mapping",
     color: "text-accent",
     image: droneCity,
+    video: "/videos/drone-city.mp4",
   },
   {
     icon: Plane,
@@ -52,6 +126,7 @@ const contentTypes = [
     example: "Agricultural monitoring",
     color: "text-accent",
     image: droneFarm,
+    video: undefined, // Add your video file
   },
   {
     icon: Plane,
@@ -60,6 +135,7 @@ const contentTypes = [
     example: "Coastal survey",
     color: "text-accent",
     image: droneCoast,
+    video: undefined, // Add your video file
   },
   {
     icon: Gamepad2,
@@ -68,6 +144,7 @@ const contentTypes = [
     example: "Full-body dance tracking",
     color: "text-primary",
     image: xrDance,
+    video: undefined, // Add your video file
   },
   {
     icon: Gamepad2,
@@ -76,6 +153,7 @@ const contentTypes = [
     example: "Gesture recognition",
     color: "text-primary",
     image: xrGesture,
+    video: undefined, // Add your video file
   },
   {
     icon: Gamepad2,
@@ -84,6 +162,7 @@ const contentTypes = [
     example: "Facial expressions",
     color: "text-primary",
     image: xrFacial,
+    video: undefined, // Add your video file
   },
 ];
 
@@ -120,22 +199,17 @@ export const AIContentTypes = () => {
                 <Card 
                   className="p-0 bg-gradient-card backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-glow group overflow-hidden"
                 >
-                  <div className="relative h-48 w-full overflow-hidden">
-                    <motion.img 
-                      src={type.image} 
-                      alt={type.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
-                    <motion.div 
-                      className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-primary/10 backdrop-blur-sm flex items-center justify-center"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                    >
-                      <Icon className={`w-6 h-6 ${type.color}`} />
-                    </motion.div>
-                  </div>
+                  <VideoPlayer
+                    videoSrc={type.video}
+                    posterImage={type.image}
+                    title={type.title}
+                  />
+                  <motion.div 
+                    className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-primary/10 backdrop-blur-sm flex items-center justify-center z-10"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
+                    <Icon className={`w-6 h-6 ${type.color}`} />
+                  </motion.div>
                   <div className="p-8 flex flex-col items-center text-center">
                     <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
                       {type.title}

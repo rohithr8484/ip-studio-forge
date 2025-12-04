@@ -1,8 +1,9 @@
 import { Card } from "@/components/ui/card";
-import { Music2, Sparkles, Disc3 } from "lucide-react";
+import { Music2, Sparkles, Disc3, Play, Pause } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
 import { RemixMusicModal } from "./RemixMusicModal";
 import { motion } from "framer-motion";
+import { useState, useRef } from "react";
 import musicIp1 from "@/assets/music-ip-1.jpg";
 import musicIp2 from "@/assets/music-ip-2.jpg";
 import musicIp3 from "@/assets/music-ip-3.jpg";
@@ -10,27 +11,114 @@ import musicIp4 from "@/assets/music-ip-4.jpg";
 import musicIp5 from "@/assets/music-ip-5.jpg";
 import musicIp6 from "@/assets/music-ip-6.jpg";
 
+// Audio player component for ringtones
+const AudioPlayer = ({ 
+  audioSrc, 
+  coverImage, 
+  title 
+}: { 
+  audioSrc?: string; 
+  coverImage: string; 
+  title: string;
+}) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100;
+      setProgress(progress || 0);
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setProgress(0);
+  };
+
+  return (
+    <div className="relative w-1/2 aspect-square overflow-hidden group/audio">
+      <img 
+        src={coverImage} 
+        alt={title}
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover/audio:opacity-100 transition-opacity duration-300">
+        <button 
+          onClick={togglePlay}
+          className="w-16 h-16 rounded-full bg-primary/90 hover:bg-primary flex items-center justify-center transition-all hover:scale-110"
+        >
+          {isPlaying ? (
+            <Pause className="w-8 h-8 text-primary-foreground" />
+          ) : (
+            <Play className="w-8 h-8 text-primary-foreground ml-1" />
+          )}
+        </button>
+        <span className="text-white text-sm mt-2 font-medium">
+          {audioSrc ? (isPlaying ? "Playing..." : "Play Ringtone") : "Sample Audio"}
+        </span>
+      </div>
+      {/* Progress bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/50">
+        <div 
+          className="h-full bg-primary transition-all duration-100"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      {audioSrc && (
+        <audio 
+          ref={audioRef}
+          src={audioSrc}
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleEnded}
+        />
+      )}
+    </div>
+  );
+};
+
 const banners = [
   {
     icon: Music2,
     title: "Synching Music to Memes",
     gradient: "from-pink-500/20 via-purple-500/20 to-blue-500/20",
     iconGradient: "from-pink-500 to-purple-500",
-    images: [musicIp1, musicIp2],
+    ringtones: [
+      { cover: musicIp1, title: "Ringtone 1" },
+      { cover: musicIp2, title: "Ringtone 2" },
+    ],
   },
   {
     icon: Disc3,
     title: "On-Chain Music Mixing Tech",
     gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20",
     iconGradient: "from-blue-500 to-cyan-500",
-    images: [musicIp3, musicIp4],
+    ringtones: [
+      { cover: musicIp3, title: "Ringtone 1" },
+      { cover: musicIp4, title: "Ringtone 2" },
+    ],
   },
   {
     icon: Sparkles,
     title: "IP Consumption Marketplace",
     gradient: "from-amber-500/20 via-orange-500/20 to-red-500/20",
     iconGradient: "from-amber-500 to-orange-500",
-    images: [musicIp5, musicIp6],
+    ringtones: [
+      { cover: musicIp5, title: "Ringtone 1" },
+      { cover: musicIp6, title: "Ringtone 2" },
+    ],
   },
 ];
 
@@ -72,19 +160,16 @@ export const MusicConsumptionBanners = () => {
                   className={`relative overflow-hidden bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
                 >
                   <div className="relative z-10 flex flex-col md:flex-row items-stretch">
-                    {/* Image Section - 2 clear music ringtone images */}
+                    {/* Audio Players Section - 50% each */}
                     <div className="relative w-full md:w-1/2 flex">
-                      {banner.images.map((img, imgIndex) => (
-                        <div key={imgIndex} className="relative w-1/2 aspect-[4/5] overflow-hidden">
-                          <img 
-                            src={img} 
-                            alt={`${banner.title} ringtone ${imgIndex + 1}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                        </div>
+                      {banner.ringtones.map((ringtone, idx) => (
+                        <AudioPlayer
+                          key={idx}
+                          coverImage={ringtone.cover}
+                          title={`${banner.title} ${ringtone.title}`}
+                        />
                       ))}
-                      <div className={`absolute top-4 left-4 w-14 h-14 rounded-xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <div className={`absolute top-4 left-4 w-14 h-14 rounded-xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center z-10 shadow-lg`}>
                         <Icon className="w-7 h-7 text-white" />
                       </div>
                     </div>
