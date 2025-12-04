@@ -2,12 +2,15 @@ import { Card } from "@/components/ui/card";
 import { Video, Plane, Gamepad2 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
 import { motion } from "framer-motion";
-import storyEmergence from "@/assets/story-emergence.webp";
-import storyMushyverse from "@/assets/story-mushyverse.webp";
-import storyMahojin from "@/assets/story-mahojin.webp";
-import storyGlobkins from "@/assets/story-globkins.webp";
-import storyMimboku from "@/assets/story-mimboku.webp";
-import storyIppy from "@/assets/story-ippy.webp";
+import povUrban from "@/assets/pov-urban.jpg";
+import povClimbing from "@/assets/pov-climbing.jpg";
+import povDriving from "@/assets/pov-driving-new.jpg";
+import droneCity from "@/assets/drone-city.jpg";
+import droneFarm from "@/assets/drone-farm.jpg";
+import droneCoast from "@/assets/drone-coast.jpg";
+import xrDance from "@/assets/xr-dance-new.jpg";
+import xrGesture from "@/assets/xr-gesture.jpg";
+import xrFacial from "@/assets/xr-facial.jpg";
 
 const contentTypes = [
   {
@@ -16,7 +19,7 @@ const contentTypes = [
     description: "First-person perspective footage powering immersive AI training datasets for spatial understanding and human interaction.",
     example: "Urban street navigation",
     color: "text-primary",
-    image: storyEmergence,
+    image: povUrban,
   },
   {
     icon: Video,
@@ -24,7 +27,7 @@ const contentTypes = [
     description: "First-person perspective footage powering immersive AI training datasets for spatial understanding and human interaction.",
     example: "Indoor rock climbing",
     color: "text-primary",
-    image: storyMushyverse,
+    image: povClimbing,
   },
   {
     icon: Video,
@@ -32,7 +35,7 @@ const contentTypes = [
     description: "First-person perspective footage powering immersive AI training datasets for spatial understanding and human interaction.",
     example: "Scenic road driving",
     color: "text-primary",
-    image: storyMahojin,
+    image: povDriving,
   },
   {
     icon: Plane,
@@ -40,7 +43,7 @@ const contentTypes = [
     description: "Aerial perspectives providing unique vantage points for AI models learning spatial reasoning and environmental mapping.",
     example: "City skyline mapping",
     color: "text-accent",
-    image: storyGlobkins,
+    image: droneCity,
   },
   {
     icon: Plane,
@@ -48,7 +51,7 @@ const contentTypes = [
     description: "Aerial perspectives providing unique vantage points for AI models learning spatial reasoning and environmental mapping.",
     example: "Agricultural monitoring",
     color: "text-accent",
-    image: storyMimboku,
+    image: droneFarm,
   },
   {
     icon: Plane,
@@ -56,7 +59,7 @@ const contentTypes = [
     description: "Aerial perspectives providing unique vantage points for AI models learning spatial reasoning and environmental mapping.",
     example: "Coastal survey",
     color: "text-accent",
-    image: storyIppy,
+    image: droneCoast,
   },
   {
     icon: Gamepad2,
@@ -64,7 +67,7 @@ const contentTypes = [
     description: "Extended reality data capturing human movement and interactions for next-generation AI understanding of physical behavior.",
     example: "Full-body dance tracking",
     color: "text-primary",
-    image: storyEmergence,
+    image: xrDance,
   },
   {
     icon: Gamepad2,
@@ -72,7 +75,7 @@ const contentTypes = [
     description: "Extended reality data capturing human movement and interactions for next-generation AI understanding of physical behavior.",
     example: "Gesture recognition",
     color: "text-primary",
-    image: storyMahojin,
+    image: xrGesture,
   },
   {
     icon: Gamepad2,
@@ -80,7 +83,7 @@ const contentTypes = [
     description: "Extended reality data capturing human movement and interactions for next-generation AI understanding of physical behavior.",
     example: "Facial expressions",
     color: "text-primary",
-    image: storyGlobkins,
+    image: xrFacial,
   },
 ];
 
