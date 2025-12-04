@@ -66,9 +66,6 @@ const AudioPlayer = ({
             <Play className="w-8 h-8 text-primary-foreground ml-1" />
           )}
         </button>
-        <span className="text-white text-sm mt-2 font-medium">
-          {audioSrc ? (isPlaying ? "Playing..." : "Play Ringtone") : "Sample Audio"}
-        </span>
       </div>
       {/* Progress bar */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/50">
@@ -145,7 +142,7 @@ export const MusicConsumptionBanners = () => {
           </p>
         </motion.div>
 
-        <div className="space-y-8">
+        <div className="space-y-12">
           {banners.map((banner, index) => {
             const Icon = banner.icon;
             return (
@@ -156,38 +153,35 @@ export const MusicConsumptionBanners = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
               >
+                {/* Title above the card */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center shadow-lg`}>
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-foreground">
+                      {banner.title}
+                    </h3>
+                  </div>
+                  <div className="flex gap-3">
+                    <IPRegistrationModal defaultType="Music" />
+                    <RemixMusicModal defaultType="remix" />
+                  </div>
+                </div>
+
+                {/* Audio rectangles card */}
                 <Card 
                   className={`relative overflow-hidden bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
                 >
-                  <div className="relative z-10 flex flex-col md:flex-row items-stretch">
-                    {/* Audio Players Section - 50% each */}
-                    <div className="relative w-full md:w-1/2 flex">
-                      {banner.ringtones.map((ringtone, idx) => (
-                        <AudioPlayer
-                          key={idx}
-                          audioSrc={ringtone.audio}
-                          coverImage={ringtone.cover}
-                          title={`${banner.title} ${ringtone.title}`}
-                        />
-                      ))}
-                      <div className={`absolute top-4 left-4 w-14 h-14 rounded-xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center z-10 shadow-lg`}>
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-                    </div>
-                    
-                    {/* Content Section */}
-                    <div className="flex-grow p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
-                      <div className="flex-grow text-center md:text-left">
-                        <h3 className="text-4xl md:text-5xl font-bold text-foreground group-hover:text-primary transition-colors">
-                          {banner.title}
-                        </h3>
-                      </div>
-
-                      <div className="flex flex-col gap-3 flex-shrink-0">
-                        <IPRegistrationModal defaultType="Music" />
-                        <RemixMusicModal defaultType="remix" />
-                      </div>
-                    </div>
+                  <div className="relative z-10 flex">
+                    {banner.ringtones.map((ringtone, idx) => (
+                      <AudioPlayer
+                        key={idx}
+                        audioSrc={ringtone.audio}
+                        coverImage={ringtone.cover}
+                        title={`${banner.title} ${ringtone.title}`}
+                      />
+                    ))}
                   </div>
                   
                   {/* Decorative gradient overlay */}
