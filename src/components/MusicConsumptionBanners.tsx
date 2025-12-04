@@ -3,12 +3,12 @@ import { Music2, Sparkles, Disc3 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
 import { RemixMusicModal } from "./RemixMusicModal";
 import { motion } from "framer-motion";
-import ringtone1 from "@/assets/ringtone-1.jpg";
-import ringtone2 from "@/assets/ringtone-2.jpg";
-import ringtone3 from "@/assets/ringtone-3.jpg";
-import ringtone4 from "@/assets/ringtone-4.jpg";
-import ringtone5 from "@/assets/ringtone-5.jpg";
-import ringtone6 from "@/assets/ringtone-6.jpg";
+import storyMusic1 from "@/assets/story-music-1.webp";
+import storyMusic2 from "@/assets/story-music-2.webp";
+import storyMusic3 from "@/assets/story-music-3.webp";
+import storyMusic4 from "@/assets/story-music-4.webp";
+import storyMusic5 from "@/assets/story-music-5.webp";
+import storyMusic6 from "@/assets/story-music-6.webp";
 
 const banners = [
   {
@@ -16,21 +16,21 @@ const banners = [
     title: "Synching Music to Memes",
     gradient: "from-pink-500/20 via-purple-500/20 to-blue-500/20",
     iconGradient: "from-pink-500 to-purple-500",
-    images: [ringtone1, ringtone5],
+    images: [storyMusic1, storyMusic2],
   },
   {
     icon: Disc3,
     title: "On-Chain Music Mixing Tech",
     gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20",
     iconGradient: "from-blue-500 to-cyan-500",
-    images: [ringtone2, ringtone4],
+    images: [storyMusic3, storyMusic4],
   },
   {
     icon: Sparkles,
     title: "IP Consumption Marketplace",
     gradient: "from-amber-500/20 via-orange-500/20 to-red-500/20",
     iconGradient: "from-amber-500 to-orange-500",
-    images: [ringtone3, ringtone6],
+    images: [storyMusic5, storyMusic6],
   },
 ];
 
