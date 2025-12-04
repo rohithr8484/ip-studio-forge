@@ -3,12 +3,12 @@ import { Music2, Sparkles, Disc3 } from "lucide-react";
 import { IPRegistrationModal } from "./IPRegistrationModal";
 import { RemixMusicModal } from "./RemixMusicModal";
 import { motion } from "framer-motion";
-import storyMusic1 from "@/assets/story-music-1.webp";
-import storyMusic2 from "@/assets/story-music-2.webp";
-import storyMusic3 from "@/assets/story-music-3.webp";
-import storyMusic4 from "@/assets/story-music-4.webp";
-import storyMusic5 from "@/assets/story-music-5.webp";
-import storyMusic6 from "@/assets/story-music-6.webp";
+import musicIp1 from "@/assets/music-ip-1.jpg";
+import musicIp2 from "@/assets/music-ip-2.jpg";
+import musicIp3 from "@/assets/music-ip-3.jpg";
+import musicIp4 from "@/assets/music-ip-4.jpg";
+import musicIp5 from "@/assets/music-ip-5.jpg";
+import musicIp6 from "@/assets/music-ip-6.jpg";
 
 const banners = [
   {
@@ -16,21 +16,21 @@ const banners = [
     title: "Synching Music to Memes",
     gradient: "from-pink-500/20 via-purple-500/20 to-blue-500/20",
     iconGradient: "from-pink-500 to-purple-500",
-    images: [storyMusic1, storyMusic2],
+    images: [musicIp1, musicIp2],
   },
   {
     icon: Disc3,
     title: "On-Chain Music Mixing Tech",
     gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20",
     iconGradient: "from-blue-500 to-cyan-500",
-    images: [storyMusic3, storyMusic4],
+    images: [musicIp3, musicIp4],
   },
   {
     icon: Sparkles,
     title: "IP Consumption Marketplace",
     gradient: "from-amber-500/20 via-orange-500/20 to-red-500/20",
     iconGradient: "from-amber-500 to-orange-500",
-    images: [storyMusic5, storyMusic6],
+    images: [musicIp5, musicIp6],
   },
 ];
 
@@ -71,21 +71,21 @@ export const MusicConsumptionBanners = () => {
                 <Card 
                   className={`relative overflow-hidden bg-gradient-to-br ${banner.gradient} backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-glow group`}
                 >
-                  <div className="relative z-10 flex flex-col md:flex-row items-center gap-0 md:gap-8">
-                    {/* Image Section - Now showing 2 images */}
-                    <div className="relative w-full md:w-1/2 h-80 md:h-[500px] overflow-hidden flex">
+                  <div className="relative z-10 flex flex-col md:flex-row items-stretch">
+                    {/* Image Section - 2 clear music ringtone images */}
+                    <div className="relative w-full md:w-1/2 flex">
                       {banner.images.map((img, imgIndex) => (
-                        <div key={imgIndex} className="relative w-1/2 h-full">
+                        <div key={imgIndex} className="relative w-1/2 aspect-[4/5] overflow-hidden">
                           <img 
                             src={img} 
-                            alt={`${banner.title} ${imgIndex + 1}`}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            alt={`${banner.title} ringtone ${imgIndex + 1}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </div>
                       ))}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/60 md:bg-gradient-to-r md:from-transparent md:to-background/80" />
-                      <div className={`absolute top-6 left-6 w-20 h-20 rounded-2xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-glow`}>
-                        <Icon className="w-10 h-10 text-white" />
+                      <div className={`absolute top-4 left-4 w-14 h-14 rounded-xl bg-gradient-to-br ${banner.iconGradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <Icon className="w-7 h-7 text-white" />
                       </div>
                     </div>
                     
