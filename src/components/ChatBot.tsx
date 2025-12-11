@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAccount, useWalletClient, useSwitchChain } from "wagmi";
 import { StoryClient, StoryConfig } from "@story-protocol/core-sdk";
-import { custom, toHex } from "viem";
+import { custom } from "viem";
 import { storyAeneidTestnet } from "@/lib/web3-config";
 import { WalletConnect } from "@/components/WalletConnect";
 
@@ -208,7 +208,14 @@ export const ChatBot = () => {
       const client = StoryClient.newClient(config);
 
       const timestamp = new Date().toISOString();
-      const contentHash = toHex(selectedContent.substring(0, 100), { size: 32 });
+      // Create a proper 32-byte hash from content
+      const encoder = new TextEncoder();
+      const data = encoder.encode(selectedContent.substring(0, 64));
+      const hashArray = new Uint8Array(32);
+      for (let i = 0; i < data.length && i < 32; i++) {
+        hashArray[i] = data[i];
+      }
+      const contentHash = `0x${Array.from(hashArray).map(b => b.toString(16).padStart(2, '0')).join('')}` as `0x${string}`;
 
       const response = await client.ipAsset.registerIpAsset({
         nft: {
