@@ -199,9 +199,11 @@ export const ChatBot = () => {
 
     setIsRegistering(true);
     try {
+      // Use explicit any to avoid deep type inference issues with viem
+      const transport = custom((walletClient as any).transport);
       const config: StoryConfig = {
-        wallet: walletClient,
-        transport: custom(walletClient.transport),
+        wallet: walletClient as any,
+        transport: transport,
         chainId: 'aeneid',
       };
       
