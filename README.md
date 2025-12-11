@@ -1,73 +1,30 @@
-# Welcome to your Lovable project
+🌐 Reality Forge
+IPFI · Dev Tools · GenAI IP Challenge · IP Detection & Enforcement
+<p align="left"> <img src="https://img.shields.io/badge/IPFI-Developer%20Tools-blue?style=flat-square" /> <img src="https://img.shields.io/badge/GenAI-IP%20Challenge-purple?style=flat-square" /> <img src="https://img.shields.io/badge/On--Chain-IP%20Detection-green?style=flat-square" /> <img src="https://img.shields.io/badge/Enforcement-Enabled-orange?style=flat-square" /> </p>
 
-## Project info
+🔥 Overview
 
-**URL**: https://lovable.dev/projects/0eb17bb0-2b77-44b6-85af-9f2ad8205709
+Reality Forge is the builder infrastructure for the IPFI ecosystem, providing the essential development environment for programmable IP applications.
+It combines:
 
-## How can I edit this code?
+IPFI Core Tooling for on-chain IP registration, lineage, and policy workflows
 
-There are several ways of editing your application.
+Dev Tools for rapid application development
 
-**Use Lovable**
+GenAI IP Challenge Framework enabling AI-based IP generation + on-chain registration
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0eb17bb0-2b77-44b6-85af-9f2ad8205709) and start prompting.
+IP Detection & Enforcement utilities for similarity scoring, derivative assessment, and rights verification
 
-Changes made via Lovable will be committed automatically to this repo.
+Reality Forge is the developer backbone for building scalable, compliant, and intelligent IP-native applications.
 
-**Use your preferred IDE**
+✨ Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+IP registration, metadata handling, and policy attachment
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Local Story Protocol sandbox
 
-Follow these steps:
+Lineage graph simulation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+GenAI → IP asset challenge modules
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/0eb17bb0-2b77-44b6-85af-9f2ad8205709) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Detection utilities for derivatives & enforcement
