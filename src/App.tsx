@@ -1,4 +1,4 @@
-// Surra Platform - Main Application Entry
+// Surra Platform v2.0
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
