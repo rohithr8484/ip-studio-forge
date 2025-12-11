@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, Send, X, Minimize2, Maximize2, FileText, Image, Loader2 } from "lucide-react";
+import { MessageCircle, Send, X, Minimize2, Maximize2, Image, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -337,17 +337,6 @@ export const ChatBot = () => {
                               )}
                               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                             </div>
-                            {msg.role === "assistant" && !isLoading && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => handleRegisterAsIP(msg.content)}
-                                className="mt-1 text-xs text-muted-foreground hover:text-primary"
-                              >
-                                <FileText className="h-3 w-3 mr-1" />
-                                Register as IP
-                              </Button>
-                            )}
                           </motion.div>
                         ))}
                         {isLoading && (
