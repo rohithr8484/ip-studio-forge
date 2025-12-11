@@ -1,7 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { AlchemyWalletConnect } from "./AlchemyWalletConnect";
 import { WalletConnect } from "./WalletConnect";
 
 export const Navigation = () => {
@@ -43,7 +42,7 @@ export const Navigation = () => {
             </a>
           </motion.div>
 
-          {/* Desktop CTA - Both wallet options */}
+          {/* Desktop CTA */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -51,7 +50,6 @@ export const Navigation = () => {
             className="hidden md:flex items-center gap-3"
           >
             <WalletConnect />
-            <AlchemyWalletConnect />
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -82,7 +80,6 @@ export const Navigation = () => {
               </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
                 <WalletConnect />
-                <AlchemyWalletConnect />
               </div>
             </div>
           </motion.div>
