@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,12 +6,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageCircle, Send, X, Minimize2, Maximize2, Image, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useAccount, useWalletClient, useSwitchChain } from "wagmi";
-import { StoryClient, StoryConfig } from "@story-protocol/core-sdk";
-import { custom, toHex } from "viem";
-import { storyAeneidTestnet } from "@/lib/web3-config";
-import { WalletConnect } from "@/components/WalletConnect";
 
 type Message = { role: "user" | "assistant"; content: string; image?: string };
 
@@ -22,9 +15,6 @@ export const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
-  const [selectedContent, setSelectedContent] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -43,11 +33,6 @@ export const ChatBot = () => {
     reader.onloadend = () => setSelectedImage(reader.result as string);
     reader.readAsDataURL(file);
   };
-  
-  const { isConnected, address, chain } = useAccount();
-  const { data: walletClient } = useWalletClient();
-  const { switchChain } = useSwitchChain();
-  const isCorrectNetwork = chain?.id === storyAeneidTestnet.id;
 
   const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-abv`;
 
@@ -59,7 +44,6 @@ export const ChatBot = () => {
 
   const streamChat = async (userMessage: Message) => {
     try {
-      // Format messages for multimodal support
       const formattedMessages = [...messages, userMessage].map(msg => {
         if (msg.image) {
           return {
@@ -172,76 +156,6 @@ export const ChatBot = () => {
     setIsLoading(true);
 
     await streamChat(userMessage);
-  };
-
-  const handleRegisterAsIP = (content: string) => {
-    setSelectedContent(content);
-    setRegisterDialogOpen(true);
-  };
-
-  const registerIP = async () => {
-    if (!isConnected || !walletClient || !address) {
-      toast({
-        title: "Wallet Not Connected",
-        description: "Please connect your wallet to register IP.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!isCorrectNetwork) {
-      toast({
-        title: "Wrong Network",
-        description: "Please switch to Story Aeneid Testnet.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsRegistering(true);
-    try {
-      const config: StoryConfig = {
-        wallet: walletClient,
-        transport: custom(walletClient.transport),
-        chainId: 'aeneid',
-      };
-      
-      const client = StoryClient.newClient(config);
-
-      const timestamp = new Date().toISOString();
-      const contentHash = toHex(selectedContent.substring(0, 100), { size: 32 });
-
-      const response = await client.ipAsset.registerIpAsset({
-        nft: {
-          type: 'mint',
-          spgNftContract: '0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc',
-        },
-        ipMetadata: {
-          ipMetadataURI: `https://surra.app/ai-content/${timestamp}`,
-          ipMetadataHash: contentHash,
-          nftMetadataURI: `https://surra.app/ai-content/${timestamp}`,
-          nftMetadataHash: contentHash,
-        },
-      });
-
-      console.log('IP registered successfully:', response);
-
-      toast({
-        title: "Success!",
-        description: `IP Asset registered! IPA ID: ${response.ipId}`,
-      });
-
-      setRegisterDialogOpen(false);
-    } catch (error) {
-      console.error("IP Registration Error:", error);
-      toast({
-        title: "Registration Failed",
-        description: error instanceof Error ? error.message : "Failed to register IP",
-        variant: "destructive",
-      });
-    } finally {
-      setIsRegistering(false);
-    }
   };
 
   return (
@@ -413,49 +327,6 @@ export const ChatBot = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* IP Registration Dialog */}
-      <Dialog open={registerDialogOpen} onOpenChange={setRegisterDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Register AI Response as IP</DialogTitle>
-            <DialogDescription>
-              Register this AI-generated content as intellectual property on Story Protocol (Aeneid Testnet)
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            <div className="bg-muted p-3 rounded-lg max-h-40 overflow-y-auto">
-              <p className="text-sm text-foreground whitespace-pre-wrap">{selectedContent}</p>
-            </div>
-
-            {!isConnected ? (
-              <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">Connect your wallet to register this content as IP</p>
-                <WalletConnect />
-              </div>
-            ) : !isCorrectNetwork ? (
-              <div className="space-y-2">
-                <p className="text-sm text-destructive">Please switch to Story Aeneid Testnet</p>
-                <Button onClick={() => switchChain({ chainId: storyAeneidTestnet.id })} className="w-full">
-                  Switch Network
-                </Button>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <p className="text-xs text-muted-foreground">Connected: {address?.slice(0, 6)}...{address?.slice(-4)}</p>
-                <Button 
-                  onClick={registerIP} 
-                  disabled={isRegistering}
-                  className="w-full"
-                >
-                  {isRegistering ? "Registering..." : "Register as IP Asset"}
-                </Button>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
     </>
   );
 };
