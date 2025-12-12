@@ -16,6 +16,7 @@ Surra transforms raw on-chain IP structures into an intuitive, human-readable ex
 A complete list of all direct, indirect, and policy-level contracts used with Story Protocol.
 
 Directly Imported Contracts
+
 # ① SPG NFT Contract
 
 Address: 0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc
@@ -34,7 +35,7 @@ Purpose: Payment token for minting and royalty settlement.
 SDK-Triggered Contracts (Indirect)
 # ④ IP Asset Registry
 
-## Handles IP asset registration, derivative linkage, metadata storage, and PIL term association.
+ Handles IP asset registration, derivative linkage, metadata storage, and PIL term association.
 
 # ⑤ License Token Contract (ERC-1155)
 
