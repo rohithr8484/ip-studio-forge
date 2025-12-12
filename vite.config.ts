@@ -13,6 +13,16 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Stub native modules that can't be built in browser environment
+      "usb": path.resolve(__dirname, "./src/lib/empty-module.ts"),
+    },
+  },
+  optimizeDeps: {
+    exclude: ["usb"],
+  },
+  build: {
+    rollupOptions: {
+      external: ["usb"],
     },
   },
 }));
