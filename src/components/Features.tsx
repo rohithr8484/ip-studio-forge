@@ -37,8 +37,14 @@ const features = [
 
 export const Features = () => {
   return (
-    <section className="py-24 px-4">
-      <div className="container mx-auto">
+    <section className="py-24 px-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      </div>
+      
+      <div className="container mx-auto relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -46,7 +52,7 @@ export const Features = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">
             Why Choose Our Platform
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -64,16 +70,21 @@ export const Features = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex gap-4 items-start group"
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="flex gap-4 items-start group p-6 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/30 card-hover"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="w-6 h-6 text-primary-foreground" />
-                </div>
+                <motion.div 
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0 shadow-neon"
+                >
+                  <Icon className="w-7 h-7 text-primary-foreground" />
+                </motion.div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-gradient transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground leading-relaxed">
                     {feature.description}
                   </p>
                 </div>

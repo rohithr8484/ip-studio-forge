@@ -57,6 +57,8 @@ const baseConfig = {
       boxShadow: {
         'glow': 'var(--shadow-glow)',
         'card': 'var(--shadow-card)',
+        'neon': 'var(--shadow-neon)',
+        'elevated': 'var(--shadow-elevated)',
       },
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
