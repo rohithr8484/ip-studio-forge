@@ -28,3 +28,90 @@ Surra functions as:
 A Creative Frontend that simplifies the creation and registration of IP
 
 A Data Layer that indexes lineage, metadata, enforcement, and analytics
+
+
+
+## 📘 Story Protocol – Smart Contract & Package Reference (v1)
+
+This document lists all smart contracts used directly or indirectly, plus all packages required in your project.
+
+## 🧱 Directly Imported Smart Contracts
+### ① SPG NFT Contract
+
+Address: 0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc
+Purpose:
+
+Mints IP Asset NFTs
+
+Creates the parent IP during registration
+
+### ② Royalty Policy (LAP – License Attribution Protocol)
+
+Address: 0x28b4F70ffE5ba7A26aEF979226f77Eb57fb9Fdb6
+Purpose:
+
+Royalty splits
+
+Revenue-share logic
+
+Automated PIL payouts
+
+### ③ WIP Token Contract
+
+Address: WIP_TOKEN_ADDRESS
+Purpose:
+
+Payment currency for minting
+
+Settlement currency for royalties
+
+## 🔁 SDK-Triggered Smart Contracts (Indirect)
+
+### ④ IP Asset Registry
+
+Handles:
+
+registerIpAsset
+
+IP metadata storage
+
+Derivative (parent → child) lineage
+
+PIL license term association
+
+### ⑤ License Token Contract (ERC-1155)
+
+Handles:
+
+mintLicenseTokens
+
+PIL license token management
+
+Usage rights + remix & derivative permissioning
+
+### ⑥ PIL Terms Registry
+
+Stores all PIL templates:
+
+Basic
+
+Commercial
+
+Revenue Share
+
+Derivatives Allowed
+
+Non-Commercial Remixing
+
+
+### 📐 Solidity Struct Reference
+struct PILTerms {
+  bool transferable;
+  address royaltyPolicy;
+  uint256 defaultMintingFee;
+  bool commercialUse;
+  uint32 commercialRevShare;
+  bool derivativesAllowed;
+  bool derivativesAttribution;
+  address currency;
+}
