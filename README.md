@@ -1,74 +1,73 @@
-## Creative Frontend + Data Layer
-<p align="left"> <img src="https://img.shields.io/badge/Creative-Frontend-pink?style=flat-square" /> <img src="https://img.shields.io/badge/Data-Layer-yellow?style=flat-square" /> <img src="https://img.shields.io/badge/IPFI-Explorer-blue?style=flat-square" /> </p>
+# Welcome to your Lovable project
 
-Surra is the creator-facing interface and the data intelligence surface for the IPFI ecosystem.
-It brings together:
+## Project info
 
-Creative Frontend for generating, uploading, and managing IP
+**URL**: https://lovable.dev/projects/0eb17bb0-2b77-44b6-85af-9f2ad8205709
 
-Data Layer for viewing lineage, metadata, enforcement signals, and analytics
+## How can I edit this code?
 
-Surra transforms raw on-chain IP structures into an intuitive, human-readable experience.
+There are several ways of editing your application.
 
-## 📘 Story Protocol – Smart Contract Reference (v1)
+**Use Lovable**
 
-A complete list of all direct, indirect, and policy-level contracts used with Story Protocol.
+Simply visit the [Lovable Project](https://lovable.dev/projects/0eb17bb0-2b77-44b6-85af-9f2ad8205709) and start prompting.
 
-Directly Imported Contracts
+Changes made via Lovable will be committed automatically to this repo.
 
-# ① SPG NFT Contract
+**Use your preferred IDE**
 
-Address: 0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc
-Purpose: Mints IP Asset NFTs and creates the parent IP during registration.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-# ② Royalty Policy (LAP – License Attribution Protocol)
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Address: 0x28b4F70ffE5ba7A26aEF979226f77Eb57fb9Fdb6
-Purpose: Royalty splits, revenue-share logic, automated PIL payouts.
+Follow these steps:
 
-# ③ WIP Token Contract
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-Address: WIP_TOKEN_ADDRESS
-Purpose: Payment token for minting and royalty settlement.
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-SDK-Triggered Contracts (Indirect)
-# ④ IP Asset Registry
+# Step 3: Install the necessary dependencies.
+npm i
 
- Handles IP asset registration, derivative linkage, metadata storage, and PIL term association.
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
 
-# ⑤ License Token Contract (ERC-1155)
+**Edit a file directly in GitHub**
 
-Handles minting license tokens, permissioning, and remix/derivative rights.
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-# ⑥ PIL Terms Registry
+**Use GitHub Codespaces**
 
-Stores all PIL license templates: Basic, Commercial, Revenue Share, Derivatives, Non-Commercial.
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-PIL Royalty Policy Suite (Auto-Triggered)
-PIL Flavor → Contract Used
+## What technologies are used for this project?
 
-Basic → Attribution Logic
+This project is built with:
 
-Revenue Share → Revenue Share Policy + Royalty Splits
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-Derivatives → Derivative Lineage Manager
+## How can I deploy this project?
 
-Commercial → Commercial Rights Policy
+Simply open [Lovable](https://lovable.dev/projects/0eb17bb0-2b77-44b6-85af-9f2ad8205709) and click on Share -> Publish.
 
-Story Protocol Core Router
+## Can I connect a custom domain to my Lovable project?
 
-Routes all minting, licensing, derivatives, and policy enforcement operations through the SDK.
+Yes, you can!
 
-## Solidity Struct Reference
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-struct PILTerms {
-  bool transferable;
-  address royaltyPolicy;
-  uint256 defaultMintingFee;
-  bool commercialUse;
-  uint32 commercialRevShare;
-  bool derivativesAllowed;
-  bool derivativesAttribution;
-  address currency;
-}
-
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)

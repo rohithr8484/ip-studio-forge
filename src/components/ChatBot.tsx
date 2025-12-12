@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"; // ChatBot component
+import { useState, useRef, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAccount, useWalletClient, useSwitchChain } from "wagmi";
 import { StoryClient, StoryConfig } from "@story-protocol/core-sdk";
-import { custom } from "viem";
+import { custom, toHex } from "viem";
 import { storyAeneidTestnet } from "@/lib/web3-config";
 import { WalletConnect } from "@/components/WalletConnect";
 
@@ -199,25 +199,16 @@ export const ChatBot = () => {
 
     setIsRegistering(true);
     try {
-      // Use explicit any to avoid deep type inference issues with viem
-      const transport = custom((walletClient as any).transport);
       const config: StoryConfig = {
-        wallet: walletClient as any,
-        transport: transport,
+        wallet: walletClient,
+        transport: custom(walletClient.transport),
         chainId: 'aeneid',
       };
       
       const client = StoryClient.newClient(config);
 
       const timestamp = new Date().toISOString();
-      // Create a proper 32-byte hash from content
-      const encoder = new TextEncoder();
-      const data = encoder.encode(selectedContent.substring(0, 64));
-      const hashArray = new Uint8Array(32);
-      for (let i = 0; i < data.length && i < 32; i++) {
-        hashArray[i] = data[i];
-      }
-      const contentHash = `0x${Array.from(hashArray).map(b => b.toString(16).padStart(2, '0')).join('')}` as `0x${string}`;
+      const contentHash = toHex(selectedContent.substring(0, 100), { size: 32 });
 
       const response = await client.ipAsset.registerIpAsset({
         nft: {
