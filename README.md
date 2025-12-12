@@ -35,6 +35,7 @@ A Data Layer that indexes lineage, metadata, enforcement, and analytics
 
 This document lists all smart contracts used directly or indirectly, plus all packages required in your project.
 
+
 ## 🧱 Directly Imported Smart Contracts
 ### ① SPG NFT Contract
 
@@ -105,6 +106,7 @@ Non-Commercial Remixing
 
 
 ### 📐 Solidity Struct Reference
+
 struct PILTerms {
   bool transferable;
   address royaltyPolicy;
