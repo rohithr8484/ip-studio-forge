@@ -40,6 +40,7 @@ This document lists all smart contracts used directly or indirectly, plus all pa
 ### ① SPG NFT Contract
 
 Address: 0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc
+
 Purpose:
 
 Mints IP Asset NFTs
@@ -49,6 +50,7 @@ Creates the parent IP during registration
 ### ② Royalty Policy (LAP – License Attribution Protocol)
 
 Address: 0x28b4F70ffE5ba7A26aEF979226f77Eb57fb9Fdb6
+
 Purpose:
 
 Royalty splits
@@ -60,6 +62,7 @@ Automated PIL payouts
 ### ③ WIP Token Contract
 
 Address: WIP_TOKEN_ADDRESS
+
 Purpose:
 
 Payment currency for minting
@@ -108,12 +111,20 @@ Non-Commercial Remixing
 ### 📐 Solidity Struct Reference
 
 struct PILTerms {
+ 
   bool transferable;
+ 
   address royaltyPolicy;
+
   uint256 defaultMintingFee;
+ 
   bool commercialUse;
+
   uint32 commercialRevShare;
+ 
   bool derivativesAllowed;
+ 
   bool derivativesAttribution;
+ 
   address currency;
 }
