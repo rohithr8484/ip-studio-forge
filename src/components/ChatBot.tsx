@@ -257,7 +257,7 @@ export const ChatBot = () => {
             <Button
               onClick={() => setIsOpen(true)}
               size="lg"
-              className="h-16 w-16 rounded-full shadow-glow bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+              className="h-16 w-16 rounded-full shadow-[0_0_30px_hsl(192_91%_48%_/_0.4)] bg-gradient-to-br from-primary via-primary to-accent hover:from-primary/90 hover:to-accent/90 animate-glow-pulse"
             >
               <MessageCircle className="h-8 w-8" />
             </Button>
@@ -274,12 +274,14 @@ export const ChatBot = () => {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed bottom-8 right-8 z-50 w-full max-w-md"
           >
-            <Card className="overflow-hidden shadow-2xl border-primary/20">
+            <Card className="overflow-hidden shadow-[0_20px_60px_hsl(220_25%_4%_/_0.5)] border-primary/30 animate-neon-border">
               {/* Header */}
-              <div className="bg-gradient-to-r from-primary to-primary/80 p-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <MessageCircle className="h-5 w-5 text-white" />
-                  <h3 className="font-semibold text-white">Creative Front-End - Surra AI Assistant</h3>
+              <div className="bg-gradient-to-r from-primary via-primary/90 to-accent p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    <MessageCircle className="h-4 w-4 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-white">Surra AI Assistant</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
@@ -337,17 +339,6 @@ export const ChatBot = () => {
                               )}
                               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                             </div>
-                            {msg.role === "assistant" && !isLoading && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => handleRegisterAsIP(msg.content)}
-                                className="mt-1 text-xs text-muted-foreground hover:text-primary"
-                              >
-                                <FileText className="h-3 w-3 mr-1" />
-                                Register as IP
-                              </Button>
-                            )}
                           </motion.div>
                         ))}
                         {isLoading && (
