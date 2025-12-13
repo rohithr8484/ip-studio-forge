@@ -30,6 +30,12 @@ A Creative Frontend that simplifies the creation and registration of IP
 A Data Layer that indexes lineage, metadata, enforcement, and analytics
 
 
+### Tech Stack
+
+```bash
+<img width="288" height="494" alt="image" src="https://github.com/user-attachments/assets/69e45af5-969d-44a7-a8ed-2de2662aa29b" />
+
+```
 
 ## 📘 Story Protocol – Smart Contract & Package Reference (v1)
 
@@ -133,10 +139,8 @@ struct PILTerms {
 
 ### Components
 
-```bash
 <img width="288" height="494" alt="image" src="https://github.com/user-attachments/assets/69e45af5-969d-44a7-a8ed-2de2662aa29b" />
 
-```
 
 ### Available Scripts
 
