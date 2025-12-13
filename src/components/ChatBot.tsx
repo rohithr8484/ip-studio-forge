@@ -3,13 +3,15 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, Send, X, Minimize2, Maximize2, FileText, Image, Loader2 } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { MessageCircle, Send, X, Minimize2, Maximize2, Image, Loader2, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { useAccount, useWalletClient, useSwitchChain } from "wagmi";
 import { StoryClient, StoryConfig } from "@story-protocol/core-sdk";
-import { custom, toHex } from "viem";
+import { custom, toHex, keccak256, stringToBytes } from "viem";
 import { storyAeneidTestnet } from "@/lib/web3-config";
 import { WalletConnect } from "@/components/WalletConnect";
 
@@ -23,6 +25,9 @@ export const ChatBot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
   const [selectedContent, setSelectedContent] = useState("");
+  const [selectedImageForIP, setSelectedImageForIP] = useState<string | null>(null);
+  const [ipName, setIpName] = useState("");
+  const [ipDescription, setIpDescription] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -173,8 +178,11 @@ export const ChatBot = () => {
     await streamChat(userMessage);
   };
 
-  const handleRegisterAsIP = (content: string) => {
+  const handleRegisterAsIP = (content: string, image?: string) => {
     setSelectedContent(content);
+    setSelectedImageForIP(image || null);
+    setIpName("");
+    setIpDescription(content.substring(0, 500));
     setRegisterDialogOpen(true);
   };
 
@@ -197,6 +205,15 @@ export const ChatBot = () => {
       return;
     }
 
+    if (!ipName.trim()) {
+      toast({
+        title: "Name Required",
+        description: "Please enter a name for your IP asset.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsRegistering(true);
     try {
       const config: StoryConfig = {
@@ -208,7 +225,10 @@ export const ChatBot = () => {
       const client = StoryClient.newClient(config);
 
       const timestamp = new Date().toISOString();
-      const contentHash = toHex(selectedContent.substring(0, 100), { size: 32 });
+      
+      // Create content hash from name + description + image presence
+      const contentToHash = `${ipName}|${ipDescription}|${selectedImageForIP ? 'has_image' : 'text_only'}|${timestamp}`;
+      const contentHash = keccak256(stringToBytes(contentToHash));
 
       const response = await client.ipAsset.registerIpAsset({
         nft: {
@@ -231,6 +251,10 @@ export const ChatBot = () => {
       });
 
       setRegisterDialogOpen(false);
+      setIpName("");
+      setIpDescription("");
+      setSelectedContent("");
+      setSelectedImageForIP(null);
     } catch (error) {
       console.error("IP Registration Error:", error);
       toast({
@@ -339,6 +363,17 @@ export const ChatBot = () => {
                               )}
                               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                             </div>
+                            {msg.role === "assistant" && msg.content && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleRegisterAsIP(msg.content, msg.image)}
+                                className="mt-1 text-xs text-primary hover:text-primary/80 hover:bg-primary/10 gap-1"
+                              >
+                                <Shield className="h-3 w-3" />
+                                Register IP on Story
+                              </Button>
+                            )}
                           </motion.div>
                         ))}
                         {isLoading && (
@@ -417,40 +452,90 @@ export const ChatBot = () => {
 
       {/* IP Registration Dialog */}
       <Dialog open={registerDialogOpen} onOpenChange={setRegisterDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Register AI Response as IP</DialogTitle>
+            <DialogTitle>Register AI Content as IP</DialogTitle>
             <DialogDescription>
               Register this AI-generated content as intellectual property on Story Protocol (Aeneid Testnet)
             </DialogDescription>
           </DialogHeader>
           
           <div className="space-y-4">
-            <div className="bg-muted p-3 rounded-lg max-h-40 overflow-y-auto">
-              <p className="text-sm text-foreground whitespace-pre-wrap">{selectedContent}</p>
+            {/* Preview Section */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Content Preview</Label>
+              <div className="bg-muted p-3 rounded-lg max-h-32 overflow-y-auto border">
+                {selectedImageForIP && (
+                  <img src={selectedImageForIP} alt="Content" className="max-w-full h-20 object-cover rounded mb-2" />
+                )}
+                <p className="text-xs text-foreground whitespace-pre-wrap line-clamp-4">{selectedContent}</p>
+              </div>
             </div>
 
+            {/* IP Name */}
+            <div className="space-y-2">
+              <Label htmlFor="ip-name">IP Name *</Label>
+              <Input
+                id="ip-name"
+                placeholder="Give your IP asset a name..."
+                value={ipName}
+                onChange={(e) => setIpName(e.target.value)}
+                disabled={!isConnected || !isCorrectNetwork}
+              />
+            </div>
+
+            {/* Description */}
+            <div className="space-y-2">
+              <Label htmlFor="ip-description">Description</Label>
+              <Textarea
+                id="ip-description"
+                placeholder="Describe this IP asset..."
+                value={ipDescription}
+                onChange={(e) => setIpDescription(e.target.value)}
+                rows={4}
+                className="resize-none"
+                disabled={!isConnected || !isCorrectNetwork}
+              />
+              <p className="text-xs text-muted-foreground">{ipDescription.length} / 2000 characters</p>
+            </div>
+
+            {/* Wallet Connection Status */}
             {!isConnected ? (
-              <div className="space-y-2">
+              <div className="space-y-2 p-3 rounded-lg bg-muted/50 border">
                 <p className="text-sm text-muted-foreground">Connect your wallet to register this content as IP</p>
                 <WalletConnect />
               </div>
             ) : !isCorrectNetwork ? (
-              <div className="space-y-2">
-                <p className="text-sm text-destructive">Please switch to Story Aeneid Testnet</p>
-                <Button onClick={() => switchChain({ chainId: storyAeneidTestnet.id })} className="w-full">
+              <div className="space-y-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                <p className="text-sm text-amber-600 dark:text-amber-400">Please switch to Story Aeneid Testnet</p>
+                <Button onClick={() => switchChain({ chainId: storyAeneidTestnet.id })} className="w-full" variant="outline">
                   Switch Network
                 </Button>
               </div>
             ) : (
-              <div className="space-y-2">
-                <p className="text-xs text-muted-foreground">Connected: {address?.slice(0, 6)}...{address?.slice(-4)}</p>
+              <div className="space-y-3">
+                <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400">
+                    ✓ Connected: {address?.slice(0, 6)}...{address?.slice(-4)} on Story Aeneid Testnet
+                  </p>
+                </div>
                 <Button 
                   onClick={registerIP} 
-                  disabled={isRegistering}
+                  disabled={isRegistering || !ipName.trim()}
                   className="w-full"
+                  variant="hero"
                 >
-                  {isRegistering ? "Registering..." : "Register as IP Asset"}
+                  {isRegistering ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      Registering on Story...
+                    </>
+                  ) : (
+                    <>
+                      <Shield className="h-4 w-4 mr-2" />
+                      Register as IP Asset
+                    </>
+                  )}
                 </Button>
               </div>
             )}
