@@ -26,7 +26,7 @@ Unified dashboard across all creative assets
 Our whitepaper details Surra’s creative frontend, data layer, and IP workflow.
 
 👉 [Read the Whitepaper](Surra_Whitepaper%20(2).pdf)
-
+⬇️ [Download the Surra Whitepaper (PDF)](https://raw.githubusercontent.com/<USERNAME>/<REPO>/main/Surra_Whitepaper%20(2).pdf)
 
 ### Technical Architecture
 
