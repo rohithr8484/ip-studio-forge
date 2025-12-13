@@ -47,7 +47,7 @@ A Data Layer that indexes lineage, metadata, enforcement, and analytics
 
 - React Router  
 
-### 🎨 UI & Creative UX
+🎨 UI & Creative UX
 
 - Radix UI – Accessible UI primitives
 
@@ -63,7 +63,7 @@ A Data Layer that indexes lineage, metadata, enforcement, and analytics
 
 - TSParticles – Generative / creative visual effects  
 
-### 🧠 Forms & State
+🧠 Forms & State
 
 - React Hook Form + Zod – Forms & validation
 
@@ -71,21 +71,21 @@ A Data Layer that indexes lineage, metadata, enforcement, and analytics
 
 - Sonner – Notifications  
 
-### 🔐 Wallets & Accounts
+🔐 Wallets & Accounts
 
 - Account Kit (React + Infra) – Embedded wallets & account abstraction
 
 - Wagmi + Viem – Blockchain interactions  
 
-### 🧬 Web3 & IP Layer
+🧬 Web3 & IP Layer
 
 - Story Protocol SDK – IP registration, licensing, remixing & royalties  
 
-### 🗄️ Data & Backend
+🗄️ Data & Backend
 
 - Supabase – Database, auth, and storage  
 
-### 📊 Visualization & Layout
+📊 Visualization & Layout
 
 - Recharts – Analytics & metrics
 
