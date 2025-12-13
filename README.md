@@ -21,13 +21,18 @@ Enforcement signal and similarity indicators
 
 Unified dashboard across all creative assets
 
-## Architecture
+### Technical Architecture
 
 Surra functions as:
 
 A Creative Frontend that simplifies the creation and registration of IP
 
 A Data Layer that indexes lineage, metadata, enforcement, and analytics
+
+<img width="576" height="864" alt="image" src="https://github.com/user-attachments/assets/8d36c2b9-75e7-4a08-a5b0-037f6643ad38" />
+
+<img width="313" height="352" alt="image" src="https://github.com/user-attachments/assets/3c382d27-38f8-450e-8a8b-5b4a0e013a9e" />
+
 
 
 ### Tech Stack
