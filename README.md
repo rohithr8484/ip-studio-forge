@@ -134,10 +134,7 @@ struct PILTerms {
 ### Components
 
 ```bash
-
----
-
-
+<img width="288" height="494" alt="image" src="https://github.com/user-attachments/assets/69e45af5-969d-44a7-a8ed-2de2662aa29b" />
 
 ```
 
