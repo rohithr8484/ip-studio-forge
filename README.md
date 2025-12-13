@@ -21,6 +21,13 @@ Enforcement signal and similarity indicators
 
 Unified dashboard across all creative assets
 
+## 📄 Whitepaper
+
+Our whitepaper details Surra’s creative frontend, data layer, and IP workflow.
+
+👉 [Read the Whitepaper](Surra_Whitepaper%20(2).pdf)
+
+
 ### Technical Architecture
 
 Surra functions as:
