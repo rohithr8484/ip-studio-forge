@@ -128,3 +128,50 @@ struct PILTerms {
  
   address currency;
 }
+
+
+
+### Components
+
+```bash
+
+---
+
+
+
+```
+
+### Available Scripts
+
+```bash
+
+# Clone the repository
+
+git clone https://github.com/rohithr8484/story-creator-hub.git
+
+cd story-creator-hub
+
+# Install dependencies
+npm install
+
+# Development server
+npm run dev
+
+# Production build
+npm run build
+
+# Development build
+npm run build:dev
+
+# Preview production build
+npm run preview
+
+# Linting
+npm run lint
+```
+
+### 🤝 Contributing
+We welcome contributions! Please feel free to submit pull requests or open issues to help improve Simple Financial Services.
+
+### 📄 License
+This project is proprietary. Please contact the maintainers for access and usage information.
