@@ -38,7 +38,58 @@ A Data Layer that indexes lineage, metadata, enforcement, and analytics
 ### Tech Stack
 
 ```bash
-<img width="288" height="494" alt="image" src="https://github.com/user-attachments/assets/69e45af5-969d-44a7-a8ed-2de2662aa29b" />
+
+🌐 Frontend
+
+- React
+
+- TypeScript
+
+- React Router  
+
+### 🎨 UI & Creative UX
+
+- Radix UI – Accessible UI primitives
+
+- Tailwind CSS – Utility-first styling
+
+- Framer Motion – Animations & transitions
+
+- Lucide React – Icons
+
+- Embla Carousel – Sliders & carousels
+
+- Cmdk, Vaul – Command palette & drawers
+
+- TSParticles – Generative / creative visual effects  
+
+### 🧠 Forms & State
+
+- React Hook Form + Zod – Forms & validation
+
+- TanStack React Query – Async state & caching
+
+- Sonner – Notifications  
+
+### 🔐 Wallets & Accounts
+
+- Account Kit (React + Infra) – Embedded wallets & account abstraction
+
+- Wagmi + Viem – Blockchain interactions  
+
+### 🧬 Web3 & IP Layer
+
+- Story Protocol SDK – IP registration, licensing, remixing & royalties  
+
+### 🗄️ Data & Backend
+
+- Supabase – Database, auth, and storage  
+
+### 📊 Visualization & Layout
+
+- Recharts – Analytics & metrics
+
+- React Resizable Panels – Flexible creative layouts  
 
 ```
 
