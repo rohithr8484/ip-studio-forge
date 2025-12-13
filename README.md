@@ -147,9 +147,9 @@ struct PILTerms {
 
 # Clone the repository
 
-git clone https://github.com/rohithr8484/story-creator-hub.git
+git clone https://github.com/rohithr8484/ip-studio-forge.git
 
-cd story-creator-hub
+cd ip-studio-forge
 
 # Install dependencies
 npm install
