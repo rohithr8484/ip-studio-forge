@@ -176,26 +176,6 @@ Derivatives Allowed
 Non-Commercial Remixing
 
 
-### 📐 Solidity Struct Reference
-
-struct PILTerms {
- 
-  bool transferable;
- 
-  address royaltyPolicy;
-
-  uint256 defaultMintingFee;
- 
-  bool commercialUse;
-
-  uint32 commercialRevShare;
- 
-  bool derivativesAllowed;
- 
-  bool derivativesAttribution;
- 
-  address currency;
-}
 
 
 
